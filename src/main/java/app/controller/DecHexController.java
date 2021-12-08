@@ -1,2 +1,12 @@
-package app.controller;public class DecHexController {
+package app.controller;
+
+import javafx.fxml.Initializable;
+import java.net.URL;
+import java.util.ResourceBundle;
+
+public class DecHexController implements Initializable {
+    @Override
+    public void initialize(URL url, ResourceBundle resourceBundle) {
+
+    }
 }

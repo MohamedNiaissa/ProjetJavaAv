@@ -9,4 +9,6 @@ module app.projetjavaav {
     exports app;
     exports app.controller;
     opens app.controller to javafx.fxml;
+    exports app.model;
+    opens app.model to javafx.fxml;
 }
