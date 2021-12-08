@@ -7,15 +7,11 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -85,55 +81,125 @@ public class BibController implements Initializable {
     @FXML
     private HBox contentMain;
 
+    @FXML
+    private Button suppr;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
         contentMain.getChildren().remove(formumaire);
 
-        ObservableList<Book> books = FXCollections.observableArrayList(
 
-        );
+        /* List vue par JavaFX*/
+        ObservableList<Book> books = FXCollections.observableArrayList();
 
-        btnValider.setOnMouseClicked(addBook -> {
 
-            String repName = champName.getText();
-            String repAuteur = champAuteur.getText();
-            String repResume = champResume.getText();
-            String repColonne = champColonne.getText();
-            String repRangee = champRangee.getText();
-            String repParution = champParution.getText();
 
-            if ((repName != "" && repAuteur != "" && repResume != "" && repColonne != "" && repRangee != "" && repParution != "") || repName != "" && repAuteur != "" &&repColonne != "" && repRangee != "" && repParution != "" ){
-                books.add(new Book(repName,repAuteur,repResume,repColonne,repRangee,repParution));
-            }else {
-                System.out.println("Veuillez remplir le champ manquant");
-            }
-
-            contentMain.getChildren().remove(formumaire);
-
-        });
 
         plus.setOnMouseClicked(apparitionForm -> {
-            System.out.println("Je suis dans le plus");
+
             contentMain.getChildren().add(formumaire);
 
+            btnValider.setOnMouseClicked(addBook -> {
+
+                System.out.println("Ajout");
+                String repName = champName.getText();
+                String repAuteur = champAuteur.getText();
+                String repResume = champResume.getText();
+                String repColonne = champColonne.getText();
+                String repRangee = champRangee.getText();
+                String repParution = champParution.getText();
+
+                // definition des différentes colonnes
+                name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
+                auteur.setCellValueFactory(new PropertyValueFactory<Book,String>("auteur"));
+                colonne.setCellValueFactory(new PropertyValueFactory<Book,String>("colonne"));
+                rangee.setCellValueFactory(new PropertyValueFactory<Book,String>("rangee"));
+                resume.setCellValueFactory(new PropertyValueFactory<Book,String>("resume"));
+                parution.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
+
+                tabBib.setItems(books);
+
+                Book myBook = new Book(repName,repAuteur,repResume,repColonne,repRangee,repParution);
+
+                if ((repName != "" && repAuteur != "" && repColonne != "" && repRangee != "" && repParution != "")){
+                    books.add(myBook);
+                    /* Effacement des champs après validation*/
+                    champColonne.clear();
+                    champAuteur.clear();
+                    champParution.clear();
+                    champRangee.clear();
+                    champName.clear();
+                    champResume.clear();
+                    contentMain.getChildren().remove(formumaire);
+                }else{
+                    System.out.println("Veuillez remplir le champ manquant");
+                }
+            });
         });
 
 
+        /* Voir les informations d'un livre */
+        tabBib.setOnMouseClicked(selectChamp-> {
 
-        // definition des différentes colonnes
-        name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
-        auteur.setCellValueFactory(new PropertyValueFactory<Book,String>("auteur"));
-        colonne.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
-        rangee.setCellValueFactory(new PropertyValueFactory<Book,String>("rangee"));
-        resume.setCellValueFactory(new PropertyValueFactory<Book,String>("resume"));
-        parution.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
+            ObservableList<Book> selectedItems = tabBib.getSelectionModel().getSelectedItems();
+            System.out.println(selectedItems.get(0));
 
-        tabBib.setItems(books);
+            TablePosition selectCell = tabBib.getSelectionModel().getSelectedCells().get(0);
 
 
-        //biblio.add_book(new Book("Mon Aventure","Moi","lorem machin j'ai oublié le reste","2","1","2000"));
+            champName.setText(selectedItems.get(0).getName());
+            champResume.setText(selectedItems.get(0).getResume());
+            champParution.setText(selectedItems.get(0).getParution());
+            champAuteur.setText(selectedItems.get(0).getAuteur());
+            champColonne.setText(selectedItems.get(0).getColonne());
+            champRangee.setText(selectedItems.get(0).getRangee());
 
+            contentMain.getChildren().add(formumaire);
+
+            btnValider.setOnMouseClicked(modifier1 -> {
+                Book modifyBook = new Book(champName.getText(),champAuteur.getText(),champResume.getText(),champColonne.getText(),champRangee.getText(),champParution.getText());
+                books.set(selectCell.getRow(),modifyBook);
+                System.out.println("Modification");
+                champColonne.clear();
+                champAuteur.clear();
+                champParution.clear();
+                champRangee.clear();
+                champName.clear();
+                champResume.clear();
+
+                contentMain.getChildren().remove(formumaire);
+            });
+
+
+            suppr.setOnMouseClicked(supprLivre -> {
+
+
+
+                if (tabBib.getItems().size() == 0){
+                    System.out.println("Rien a supprimer");
+                }else {
+
+                    if (tabBib.getItems().size() == 1){  // supprime le formulaire des que le dernier book est supprimé
+                        contentMain.getChildren().remove(formumaire);
+                    }
+
+                    TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
+                    books.remove(selectCellSupr.getRow());
+
+                    champColonne.clear();
+                    champAuteur.clear();
+                    champParution.clear();
+                    champRangee.clear();
+                    champName.clear();
+                    champResume.clear();
+                }
+
+            });
+
+
+
+        });
 
     }
 }
