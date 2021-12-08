@@ -1,11 +1,59 @@
 package app.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Converter {
 
-    public void DecToBin() {
+    public String DecToBin(String strNumber) {
+        int number = Integer.parseInt(strNumber);
+        StringBuilder converted = new StringBuilder();
+        List<Integer> binBaseR = new ArrayList<>() {{
+            int baseNum = 1;
+            add(baseNum);
+            for(int base = 0; base < 30; base++) {
+                baseNum = baseNum * 2;
+                add(baseNum);
+            }
+        }};
+
+        List<Integer> binBase = new ArrayList<>(binBaseR);
+
+        for(int index = binBase.size() - 1; index >= 0; index--) {
+            if(number > binBase.get(index) && number > 1) {
+                System.out.println(binBase);
+                binBase.subList(binBase.indexOf(binBase.get(index)), binBase.indexOf(binBase.get(binBase.size() - 1))).clear();
+                binBase.remove(binBase.size() - 1);
+                System.out.println(binBase);
+                break;
+            } else if (number == 1) {
+                System.out.println(binBase);
+                binBase.subList(1, binBase.indexOf(binBase.get(binBase.size() - 1))).clear();
+                binBase.remove(binBase.size() - 1);
+                System.out.println(binBase);
+                break;
+            }
+        }
+
+        int base = 0;
+        if(binBase.size() <= 8) base = 8;
+        if(binBase.size() > 8 && binBase.size() <= 16) base = 16;
+
+        while(number != 0) {
+            for(int index = 7; index >= 0; index--) {
+                if(number >= binBaseR.get(index)) {
+                    number -= binBaseR.get(index);
+                    converted.append(1);
+                    base--;
+                } else {
+                    converted.append(0);
+                    base--;
+                }
+            }
+        }
+
+        return converted.toString();
     }
 
     public void BinToDec() {
