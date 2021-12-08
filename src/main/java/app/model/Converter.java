@@ -21,7 +21,6 @@ public class Converter {
         // Find a way to patch the error if the user enter anything else than a number.
         // Find a better way to patch the lasting II when we clean the TextField.
 
-        System.out.println(strNumber);
         int number = Integer.parseInt(strNumber);
         StringBuilder converted = new StringBuilder();
         String[] chars = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};

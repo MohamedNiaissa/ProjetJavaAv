@@ -6,6 +6,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
 import java.net.URL;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DecRomController implements Initializable {
@@ -17,13 +18,19 @@ public class DecRomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TFDecimal.setOnKeyReleased(event -> {
-            String convert = converter.DecToRom(TFDecimal.getText());
-            TFRomain.setText(convert);
+            if(!TFDecimal.getText().isBlank()) {
+                String convert = converter.DecToRom(TFDecimal.getText());
+                TFRomain.setText(convert);
+            }
         });
 
         TFRomain.setOnKeyReleased(event -> {
-            int convert = converter.RomToDec(TFRomain.getText().toUpperCase(Locale.ROOT));
-            TFDecimal.setText(String.valueOf(convert));
+            if(!TFRomain.getText().isBlank()) {
+                int convert = converter.RomToDec(TFRomain.getText().toUpperCase(Locale.ROOT));
+                String verify = converter.DecToRom(String.valueOf(convert));
+                if (Objects.equals(verify, TFRomain.getText())) TFDecimal.setText(String.valueOf(convert));
+                else System.out.println("Wrong format");
+            }
         });
     }
 }
