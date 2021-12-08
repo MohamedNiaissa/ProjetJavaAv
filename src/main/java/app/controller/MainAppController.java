@@ -3,6 +3,7 @@ package app.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -13,10 +14,16 @@ public class MainAppController implements Initializable {
     private Button btnBib;
 
     @FXML
+    private Button btnBib2;
+
+    @FXML
     private VBox asideBib;
 
     @FXML
     private VBox pageBib;
+
+    @FXML
+    private AnchorPane pageDecRom;
 
 /*    @FXML
     private Menu menuClose;*/
@@ -29,9 +36,8 @@ public class MainAppController implements Initializable {
             asideBib.getChildren().add(pageBib);
         });
 
-      /*  menuClose.setOnAction(action -> {
-            System.exit(0);
+        btnBib2.setOnMouseClicked(e -> {
+            asideBib.getChildren().add(pageDecRom);
         });
-*/
     }
 }
