@@ -102,6 +102,7 @@ public class BibController implements Initializable {
 
         btnValider.setOnMouseClicked(addBook -> {
 
+//            displayImage(urlImage.getText()); //for further use ...
             displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
 
             String repName = champName.getText();
