@@ -17,8 +17,8 @@ public class DecRomController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         TFDecimal.setOnKeyReleased(event -> {
-//            String convert = converter.DecToRom(TFRomain.getText());
-//            TFRomain.setText(String.valueOf(convert));
+            String convert = converter.DecToRom(TFDecimal.getText());
+            TFRomain.setText(convert);
         });
 
         TFRomain.setOnKeyReleased(event -> {
