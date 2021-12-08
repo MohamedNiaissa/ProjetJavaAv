@@ -17,6 +17,9 @@ public class MainAppController implements Initializable {
     private Button btnBib2;
 
     @FXML
+    private Button btnBib3;
+
+    @FXML
     private VBox asideBib;
 
     @FXML
@@ -24,6 +27,9 @@ public class MainAppController implements Initializable {
 
     @FXML
     private AnchorPane pageDecRom;
+
+    @FXML
+    private AnchorPane pageDecBin;
 
 /*    @FXML
     private Menu menuClose;*/
@@ -38,6 +44,10 @@ public class MainAppController implements Initializable {
 
         btnBib2.setOnMouseClicked(e -> {
             asideBib.getChildren().add(pageDecRom);
+        });
+
+        btnBib3.setOnMouseClicked(e -> {
+            asideBib.getChildren().add(pageDecBin);
         });
     }
 }

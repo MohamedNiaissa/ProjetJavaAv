@@ -1,14 +1,70 @@
 package app.model;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 public class Converter {
 
-    public void DecToBin() {
+    public String DecToBin(String strNumber) {
+        int number = Integer.parseInt(strNumber);
+        StringBuilder converted = new StringBuilder();
+
+        List<Integer> binBaseAll = new ArrayList<>() {{
+            int baseNum = 1;
+            add(baseNum);
+            for(int base = 0; base < 30; base++) {
+                baseNum = baseNum * 2;
+                add(baseNum);
+            }
+        }};
+        List<Integer> binBase = new ArrayList<>(binBaseAll);
+
+        for(int index = binBase.size() - 1; index >= 0; index--) {
+            if(number >= binBase.get(index) && number > 1) {
+                binBase.subList(binBase.indexOf(binBase.get(index + 1)), binBase.indexOf(binBase.get(binBase.size() - 1))).clear();
+                binBase.remove(binBase.size() - 1);
+                break;
+            } else if (number == 1) {
+                binBase.subList(1, binBase.indexOf(binBase.get(binBase.size() - 1))).clear();
+                binBase.remove(binBase.size() - 1);
+                break;
+            }
+        }
+
+        while(number != 0) {
+            for(int index = (binBase.size()) > 7 ? binBase.size() - 1 : 7 ; index >= 0; index--) {
+                if(number >= binBaseAll.get(index)) {
+                    number -= binBaseAll.get(index);
+                    converted.append(1);
+                } else {
+                    converted.append(0);
+                }
+            }
+        }
+        return converted.toString();
     }
 
-    public void BinToDec() {
+    public int BinToDec(String strBinary) {
+        int len = strBinary.length() - 1;
+        int converted = 0;
+        List<Integer> binBaseAll = new ArrayList<>() {{
+            int baseNum = 1;
+            add(baseNum);
+            for(int base = 0; base < len; base++) {
+                baseNum = baseNum * 2;
+                add(baseNum);
+            }
+        }};
+
+        for(int index = 0; index <= len; index++) {
+            if(Integer.parseInt(String.valueOf(strBinary.charAt(index))) == 1) {
+                converted += Math.pow(2,binBaseAll.size() - 1);
+            }
+            binBaseAll.remove(binBaseAll.size() - 1);
+            System.out.println(converted);
+        }
+        return converted;
     }
 
     public void DecToHex() {
