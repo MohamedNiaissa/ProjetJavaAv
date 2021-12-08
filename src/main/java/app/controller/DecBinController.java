@@ -7,6 +7,7 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.util.Locale;
+import java.util.Objects;
 import java.util.ResourceBundle;
 
 public class DecBinController implements Initializable {
@@ -27,7 +28,10 @@ public class DecBinController implements Initializable {
         TFBinaire.setOnKeyReleased(event -> {
             if(!TFBinaire.getText().isBlank()) {
                 int convert = converter.BinToDec(TFBinaire.getText());
-                TFDecimalB.setText(String.valueOf(convert));
+                String verify = converter.DecToBin(TFDecimalB.getText());
+                if (Objects.equals(verify, TFBinaire.getText())) TFDecimalB.setText(String.valueOf(convert));
+                else System.out.println("Please remove any unnecessary 0 starting from the left : " +
+                        TFBinaire.getText().replaceFirst("[0]", "0|") );
             }
         });
     }
