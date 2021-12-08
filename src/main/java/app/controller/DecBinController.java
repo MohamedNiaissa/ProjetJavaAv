@@ -26,7 +26,7 @@ public class DecBinController implements Initializable {
 
         TFBinaire.setOnKeyReleased(event -> {
             if(!TFBinaire.getText().isBlank()) {
-                int convert = converter.RomToDec(TFBinaire.getText().toUpperCase(Locale.ROOT));
+                int convert = converter.BinToDec(TFBinaire.getText());
                 TFDecimalB.setText(String.valueOf(convert));
             }
         });
