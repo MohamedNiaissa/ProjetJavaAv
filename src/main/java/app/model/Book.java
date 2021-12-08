@@ -1,7 +1,7 @@
 package app.model;
 
 public class Book extends Biblio {
-    public Book(String ex, String ex1, String ex2) {
-        super(ex, ex1, ex2);
+    public Book(String name, String auteur, String resume,String colonne,String rangee, String parution) {
+        super(name,auteur,resume,colonne,rangee,parution);
     }
 }

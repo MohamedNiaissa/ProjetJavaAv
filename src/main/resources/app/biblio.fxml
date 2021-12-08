@@ -3,66 +3,83 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.control.TreeTableColumn?>
-<?import javafx.scene.control.TreeTableView?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.BibController">
+<VBox fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="553.0" prefWidth="659.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.BibController">
     <children>
-        <HBox prefHeight="397.0" prefWidth="659.0">
+        <HBox fx:id="contentMain" prefHeight="455.0" prefWidth="659.0">
             <children>
-                <TreeTableView prefHeight="330.0" prefWidth="452.0">
-                    <columns>
-                        <TreeTableColumn prefWidth="75.0" text="Name" />
-                        <TreeTableColumn prefWidth="75.0" text="Auteur" />
-                        <TreeTableColumn prefWidth="75.0" text="Resume" />
-                        <TreeTableColumn prefWidth="75.0" text="Colonne" />
-                        <TreeTableColumn prefWidth="75.0" text="Rangée" />
-                        <TreeTableColumn prefWidth="75.0" text="Parution" />
-                    </columns>
-                </TreeTableView>
-                <VBox prefHeight="383.0" prefWidth="206.0">
+            <TableView fx:id="tabBib" prefHeight="422.0" prefWidth="451.0">
+              <columns>
+                <TableColumn fx:id="name" prefWidth="75.0" text="Name" />
+                <TableColumn fx:id="auteur" prefWidth="75.0" text="Auteur" />
+                  <TableColumn fx:id="resume" prefWidth="75.0" text="Resume" />
+                  <TableColumn fx:id="colonne" prefWidth="75.0" text="Colonne" />
+                  <TableColumn fx:id="rangee" prefWidth="75.0" text="Rangée" />
+                  <TableColumn fx:id="parution" prefWidth="75.0" text="Parution" />
+              </columns>
+            </TableView>
+                <VBox fx:id="formumaire" prefHeight="383.0" prefWidth="206.0">
                     <children>
-                        <HBox prefHeight="246.0" prefWidth="206.0">
+                        <HBox prefHeight="242.0" prefWidth="206.0">
                             <children>
                                 <Label prefHeight="17.0" prefWidth="44.0" text="Name" />
-                                <TextField />
+                                <TextField fx:id="champName" prefWidth="160.0" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="256.0" prefWidth="206.0">
+                        <HBox layoutX="10.0" layoutY="10.0" prefHeight="241.0" prefWidth="206.0">
                             <children>
-                                <Label text="Auteur" />
-                                <TextField />
+                                <Label prefWidth="46.0" text="Auteur" />
+                                <TextField fx:id="champAuteur" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="175.0" prefHeight="263.0" prefWidth="206.0">
+                        <HBox layoutX="10.0" layoutY="175.0" prefHeight="246.0" prefWidth="206.0">
                             <children>
                                 <Label text="Parution" />
-                                <TextField prefHeight="25.0" prefWidth="160.0" />
+                                <TextField fx:id="champParution" prefHeight="25.0" prefWidth="160.0" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="230.0" prefHeight="262.0" prefWidth="206.0">
+                        <HBox layoutX="10.0" layoutY="230.0" prefHeight="244.0" prefWidth="206.0">
                             <children>
                                 <Label text="Colonne" />
-                                <TextField />
+                                <TextField fx:id="champColonne" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="258.0" prefHeight="265.0" prefWidth="206.0">
+                        <HBox layoutX="10.0" layoutY="258.0" prefHeight="248.0" prefWidth="206.0">
                             <children>
                                 <Label text="Rangée" />
-                                <TextField />
+                                <TextField fx:id="champRangee" />
                             </children>
                         </HBox>
-                        <HBox layoutX="10.0" layoutY="274.0" prefHeight="338.0" prefWidth="206.0">
+                        <HBox layoutX="10.0" layoutY="274.0" prefHeight="360.0" prefWidth="206.0">
                             <children>
                                 <Label text="Resume" />
-                                <TextField prefHeight="126.0" prefWidth="160.0" />
+                                <TextField fx:id="champResume" alignment="TOP_LEFT" prefHeight="141.0" prefWidth="160.0" />
                             </children>
                         </HBox>
+                  <HBox layoutX="10.0" layoutY="237.0" prefHeight="243.0" prefWidth="206.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="45.0" text="URL" />
+                        <TextField fx:id="urlImage" prefHeight="26.0" prefWidth="190.0" />
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="384.0" prefHeight="239.0" prefWidth="206.0">
+                     <children>
+                        <Label prefHeight="17.0" prefWidth="66.0" text="imageView" />
+                        <ImageView fx:id="imgView" fitHeight="64.0" fitWidth="132.0" pickOnBounds="true" preserveRatio="true" />
+                     </children>
+                  </HBox>
+                  <Button fx:id="btnValider" mnemonicParsing="false" prefHeight="29.0" prefWidth="60.0" text="Valider" textAlignment="CENTER">
+                     <VBox.margin>
+                        <Insets left="70.0" />
+                     </VBox.margin>
+                  </Button>
                     </children>
                 </VBox>
             </children>
@@ -72,9 +89,9 @@
         </HBox>
         <HBox prefHeight="100.0" prefWidth="200.0">
             <children>
-                <Button mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0">
+                <Button fx:id="plus" mnemonicParsing="false" prefHeight="26.0" prefWidth="73.0">
                     <graphic>
-                        <ImageView fitHeight="52.0" fitWidth="79.0" pickOnBounds="true" preserveRatio="true">
+                        <ImageView fitHeight="52.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
                             <image>
                                 <Image url="@img/plus.png" />
                             </image>
