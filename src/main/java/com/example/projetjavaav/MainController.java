@@ -22,8 +22,8 @@ public class MainController implements Initializable {
     @FXML
     private VBox pageBib;
 
-    @FXML
-    private Menu menuClose;
+/*    @FXML
+    private Menu menuClose;*/
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -35,9 +35,9 @@ public class MainController implements Initializable {
 
         });
 
-        menuClose.setOnAction(action -> {
+      /*  menuClose.setOnAction(action -> {
             System.exit(0);
         });
-
+*/
     }
 }
