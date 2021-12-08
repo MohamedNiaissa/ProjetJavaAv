@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TreeView?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="302.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ArmyController">
+   <children>
+      <SplitPane dividerPositions="0.5" prefHeight="302.0" prefWidth="600.0">
+         <items>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <TreeView fx:id="TVArmy" prefHeight="300.0" prefWidth="307.0" />
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="200.0" prefWidth="200.0" />
+         </items>
+      </SplitPane>
+   </children>
+</AnchorPane>

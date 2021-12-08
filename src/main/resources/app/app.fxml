@@ -96,8 +96,9 @@
                         <VBox layoutX="1.0" layoutY="1.0" prefHeight="550.0" prefWidth="226.0">
                             <children>
                                 <Button fx:id="btnBib" mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="Button" />
-                        <Button fx:id="btnBib2" mnemonicParsing="false" text="Button" />
-                        <Button fx:id="btnBib3" mnemonicParsing="false" text="Button" />
+                        <Button fx:id="btnBib2" mnemonicParsing="false" text="DecRom" />
+                        <Button fx:id="btnBib3" mnemonicParsing="false" text="DecBin" />
+                        <Button fx:id="btnBib4" mnemonicParsing="false" text="Army" />
                             </children>
                         </VBox>
                     </children>
@@ -111,6 +112,7 @@
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
                               <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
                               <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
+                              <fx:include fx:id="pageArmy" source="army.fxml" />
                                     </children></VBox>
                             </children>
                         </AnchorPane>
