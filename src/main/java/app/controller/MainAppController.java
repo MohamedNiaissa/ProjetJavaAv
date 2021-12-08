@@ -1,18 +1,14 @@
-package com.example.projetjavaav;
+package app.controller;
 
-import javafx.application.Application;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.Menu;
 import javafx.scene.layout.VBox;
-import javafx.stage.Stage;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class MainController implements Initializable {
-
+public class MainAppController implements Initializable {
     @FXML
     private Button btnBib;
 
@@ -30,9 +26,7 @@ public class MainController implements Initializable {
         asideBib.getChildren().remove(pageBib);
 
         btnBib.setOnMouseClicked( btnAction -> {
-
             asideBib.getChildren().add(pageBib);
-
         });
 
       /*  menuClose.setOnAction(action -> {

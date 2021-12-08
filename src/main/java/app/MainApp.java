@@ -1,4 +1,4 @@
-package com.example.projetjavaav;
+package app;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -7,12 +7,12 @@ import javafx.stage.Stage;
 
 import java.io.IOException;
 
-public class MainApplication extends Application {
+public class MainApp extends Application {
     @Override
     public void start(Stage stage) throws IOException {
-        FXMLLoader fxmlLoader = new FXMLLoader(MainApplication.class.getResource("main.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
-        stage.setTitle("Hello!");
+        FXMLLoader fxmlLoader = new FXMLLoader(MainApp.class.getResource("app.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1000, 750);
+        stage.setTitle("Application name");
         stage.setScene(scene);
         stage.show();
     }
