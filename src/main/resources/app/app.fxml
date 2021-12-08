@@ -96,6 +96,7 @@
                         <VBox layoutX="1.0" layoutY="1.0" prefHeight="550.0" prefWidth="226.0">
                             <children>
                                 <Button fx:id="btnBib" mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="Button" />
+                        <Button fx:id="btnDecHex" mnemonicParsing="false" prefHeight="30.0" prefWidth="97.0" text="DecHex" />
                             </children>
                         </VBox>
                     </children>
@@ -106,6 +107,7 @@
                             <children>
                                 <VBox fx:id="asideBib" prefHeight="553.0" prefWidth="659.0">
                                     <children>
+                                        <fx:include fx:id="DecHexform" source="DecHexScene.fxml" />
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
                                     </children></VBox>
                             </children>
