@@ -114,7 +114,10 @@ public class BibController implements Initializable {
         });
         plus.setOnMouseClicked(apparitionForm -> {
 
-            contentMain.getChildren().add(formumaire);
+
+            if (!contentMain.getChildren().contains(formumaire)){
+                contentMain.getChildren().add(formumaire);
+            }
 
             btnValider.setOnMouseClicked(addBook -> {
 
@@ -148,7 +151,6 @@ public class BibController implements Initializable {
                 boolean conditionColonne = (repColonne>=1 && repColonne <=7);
                 boolean conditionRangee = (repRangee>=1 && repRangee <=7);
                 boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
-                System.out.println(" Add Valeur dateValide = " + dateValide);
 
 
                 if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
@@ -194,7 +196,10 @@ public class BibController implements Initializable {
             urlImage.setText(selectedItems.get(0).getUrl());
             if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
 
-            contentMain.getChildren().add(formumaire);
+
+            if (!contentMain.getChildren().contains(formumaire)) {
+                contentMain.getChildren().add(formumaire);
+            }
 
             btnValider.setOnMouseClicked(modifier1 -> {
                 String repName = champName.getText();
@@ -209,7 +214,6 @@ public class BibController implements Initializable {
                 boolean conditionColonne = (repColonne>=1 && repColonne <=7);
                 boolean conditionRangee = (repRangee>=1 && repRangee <=7);
                 boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
-                System.out.println(" Modif Valeur dateValide = " + !dateValide);
 
 
                 if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
