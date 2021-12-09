@@ -109,12 +109,12 @@ public class BibController implements Initializable {
         ObservableList<Book> books = FXCollections.observableArrayList();
 
         urlImage.setOnKeyReleased(event -> {
-            System.out.println("url is moving on");
             if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
         });
         plus.setOnMouseClicked(apparitionForm -> {
 
 
+            unDisplayImage();
             if (!contentMain.getChildren().contains(formumaire)){
                 contentMain.getChildren().add(formumaire);
             }
@@ -122,17 +122,25 @@ public class BibController implements Initializable {
             btnValider.setOnMouseClicked(addBook -> {
 
                 System.out.println("Ajout");
+                boolean bool = true;
 
-
-//            displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
                 unDisplayImage();
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
                 String repurlImage = urlImage.getText();
-                int repColonne = Integer.parseInt(champColonne.getText());
-                int repRangee = Integer.parseInt(champRangee.getText());
-                int repParution = Integer.parseInt(champParution.getText());
+
+                int repColonne, repRangee, repParution;
+               if(champColonne.getText().matches("[0-9]*") && champRangee.getText().matches("[0-9]*")
+                        && champParution.getText().matches("[0-9]*")) {
+
+                    repColonne = Integer.parseInt(champColonne.getText());
+                    repRangee = Integer.parseInt(champRangee.getText());
+                    repParution = Integer.parseInt(champParution.getText());
+                } else {
+                   System.out.println("Veuillez rentrer des numéros pour les champs correspondants");
+                   return;
+               }
 
 
                 // definition des différentes colonnes
@@ -156,7 +164,6 @@ public class BibController implements Initializable {
                 if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
                     books.add(myBook);
                     Clear();
-
                     contentMain.getChildren().remove(formumaire);
                 }else if (!dateValide){
                     System.out.println("Veuillez rentrez une date valide");
@@ -170,8 +177,7 @@ public class BibController implements Initializable {
                 else if(!conditionRangee){
                     System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
 
-                }
-                else {
+                }else {
                     System.out.println("Il manque des informations pour la modifications ...");
                 }
 
@@ -185,77 +191,82 @@ public class BibController implements Initializable {
 
             ObservableList<Book> selectedItems = tabBib.getSelectionModel().getSelectedItems();
 
-            TablePosition selectCell = tabBib.getSelectionModel().getSelectedCells().get(0);
 
-            champName.setText(selectedItems.get(0).getName());
-            champResume.setText(selectedItems.get(0).getResume());
-            champParution.setText(Integer.toString(selectedItems.get(0).getParution()));
-            champAuteur.setText(selectedItems.get(0).getAuteur());
-            champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
-            champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
-            urlImage.setText(selectedItems.get(0).getUrl());
-            if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
+            if (selectedItems.size() != 0){
+                TablePosition selectCell = tabBib.getSelectionModel().getSelectedCells().get(0);
 
-
-            if (!contentMain.getChildren().contains(formumaire)) {
-                contentMain.getChildren().add(formumaire);
-            }
-
-            btnValider.setOnMouseClicked(modifier1 -> {
-                String repName = champName.getText();
-                String repAuteur = champAuteur.getText();
-                String repResume = champResume.getText();
-                String repurlImage = urlImage.getText();
-                int repColonne = Integer.parseInt(champColonne.getText());
-                int repRangee = Integer.parseInt(champRangee.getText());
-                int repParution = Integer.parseInt(champParution.getText());
-
-                boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
-                boolean conditionColonne = (repColonne>=1 && repColonne <=7);
-                boolean conditionRangee = (repRangee>=1 && repRangee <=7);
-                boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
+                champName.setText(selectedItems.get(0).getName());
+                champResume.setText(selectedItems.get(0).getResume());
+                champParution.setText(Integer.toString(selectedItems.get(0).getParution()));
+                champAuteur.setText(selectedItems.get(0).getAuteur());
+                champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
+                champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
+                urlImage.setText(selectedItems.get(0).getUrl());
+                if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
 
 
-                if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
-                    Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
-                    books.set(selectCell.getRow(), modifyBook);
-                    System.out.println("Modification");
-                    Clear();
-                    contentMain.getChildren().remove(formumaire);
-                }else if (!dateValide){
-                    System.out.println("Veuillez rentrez une date valide");
-                }
-                else if (!conditionColonne && !conditionRangee){
-                    System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
-                }
-                else if (!conditionColonne){
-                    System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
-                }else if (!conditionRangee){
-                    System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
-                }
-                else {
-                    System.out.println("Il manque des informations pour la modifications ...");
+                if (!contentMain.getChildren().contains(formumaire)) {
+                    contentMain.getChildren().add(formumaire);
                 }
 
-                suppr.setOnMouseClicked(supprLivre -> {
+                btnValider.setOnMouseClicked(modifier1 -> {
+                    String repName = champName.getText();
+                    String repAuteur = champAuteur.getText();
+                    String repResume = champResume.getText();
+                    String repurlImage = urlImage.getText();
+                    int repColonne = Integer.parseInt(champColonne.getText());
+                    int repRangee = Integer.parseInt(champRangee.getText());
+                    int repParution = Integer.parseInt(champParution.getText());
+
+                    boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
+                    boolean conditionColonne = (repColonne>=1 && repColonne <=7);
+                    boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+                    boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
 
 
-                    if (tabBib.getItems().size() == 0) {
-                        System.out.println("Rien a supprimer");
-                    } else {
-                        if (tabBib.getItems().size() == 1) {  // supprime le formulaire des que le dernier book est supprimé
-                            contentMain.getChildren().remove(formumaire);
-                        }
-
-                        TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
-                        books.remove(selectCellSupr.getRow());
+                    if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
+                        Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
+                        books.set(selectCell.getRow(), modifyBook);
+                        System.out.println("Modification");
                         Clear();
-
+                        contentMain.getChildren().remove(formumaire);
+                    }else if (!dateValide){
+                        System.out.println("Veuillez rentrez une date valide");
                     }
+                    else if (!conditionColonne && !conditionRangee){
+                        System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
+                    }
+                    else if (!conditionColonne){
+                        System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
+                    }else if (!conditionRangee){
+                        System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
+                    }
+                    else {
+                        System.out.println("Il manque des informations pour la modifications ...");
+                    }
+
+                    suppr.setOnMouseClicked(supprLivre -> {
+
+
+                        if (tabBib.getItems().size() == 0) {
+                            System.out.println("Rien a supprimer");
+                        } else {
+                            if (tabBib.getItems().size() == 1) {  // supprime le formulaire des que le dernier book est supprimé
+                                contentMain.getChildren().remove(formumaire);
+                            }
+
+                            TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
+                            books.remove(selectCellSupr.getRow());
+                            Clear();
+
+                        }
+                    });
+
+
                 });
 
+            }
 
-            });
 
         });
 
@@ -277,13 +288,12 @@ public class BibController implements Initializable {
         Image myImage = null;
         boolean backgroundLoading = true;
         String imgName = "" + imgUrl;
-
-        System.out.println("imgUrl : " + imgUrl);
-        System.out.println("imgName: " + imgName);
                 txtNotFound.setText(" ");
                 imgView.imageProperty().set(null);
-                myImage = new Image(imgUrl, backgroundLoading);
-                imgView.setImage(myImage);
+                try {
+                    myImage = new Image(imgUrl, backgroundLoading);
+                    imgView.setImage(myImage);
+                } catch(Exception ignore) {}
         }
 
 
