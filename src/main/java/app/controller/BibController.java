@@ -20,9 +20,7 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class BibController implements Initializable {
     Biblio biblio = new Biblio();
@@ -95,8 +93,20 @@ public class BibController implements Initializable {
     @FXML
     private Label txtNotFound;
 
+
+    @FXML
+    private Label txtError;
+
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+
+        ArrayList<TextField> champs = new ArrayList();
+        champs.add(champName);
+        champs.add(champColonne);
+        champs.add(champRangee);
+        champs.add(champParution);
+        champs.add(champAuteur);
 
         Date date = new Date();
         Calendar annee = Calendar.getInstance();
@@ -113,13 +123,22 @@ public class BibController implements Initializable {
         });
         plus.setOnMouseClicked(apparitionForm -> {
 
-
+            txtError.setText("");
             unDisplayImage();
             if (!contentMain.getChildren().contains(formumaire)){
                 contentMain.getChildren().add(formumaire);
             }
 
             btnValider.setOnMouseClicked(addBook -> {
+
+
+                for (int i = 0; i < champs.size(); i++) {
+                    if (champs.get(i).getText().equals("")){
+                        txtError.setText("Veuillez remplir le/les champs manquants");
+                        break;
+                    }
+
+                }
 
                 System.out.println("Ajout");
                 boolean bool = true;
@@ -130,18 +149,27 @@ public class BibController implements Initializable {
                 String repResume = champResume.getText();
                 String repurlImage = urlImage.getText();
 
-                int repColonne, repRangee, repParution;
-               if(champColonne.getText().matches("[0-9]*") && champRangee.getText().matches("[0-9]*")
-                        && champParution.getText().matches("[0-9]*")) {
+                int repColonne = 0, repRangee = 0, repParution = 0;
+                if(champColonne.getText().matches("[0-9]*")
+                        && champRangee.getText().matches("[0-9]*")
+                        && champParution.getText().matches("[0-9]*")
+                        && !champColonne.getText().equals("")
+                        && !champParution.getText().equals("")
+                        && !champRangee.getText().equals("") ) {
 
                     repColonne = Integer.parseInt(champColonne.getText());
                     repRangee = Integer.parseInt(champRangee.getText());
                     repParution = Integer.parseInt(champParution.getText());
                 } else {
-                   System.out.println("Veuillez rentrer des numéros pour les champs correspondants");
-                   return;
-               }
-
+                    if (champColonne.getText().equals("") || champParution.getText().equals("") || champRangee.getText().equals("")){
+                        txtError.setText("Veuillez renseignez les \nchamps manquants");
+                        return;
+                    }
+                    if (!champColonne.getText().matches("[0-9]*") || champRangee.getText().matches("[0-9]*") || !champParution.getText().matches("[0-9]*") ){
+                        txtError.setText("Veuillez rentrer des numéros positifs\npour les champs correspondants");
+                        return;
+                    }
+                }
 
                 // definition des différentes colonnes
                 name.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
@@ -161,24 +189,46 @@ public class BibController implements Initializable {
                 boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
 
 
+
+
+
                 if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
-                    books.add(myBook);
-                    Clear();
-                    contentMain.getChildren().remove(formumaire);
+
+                    boolean boolVerifColonne = false;
+                    try{
+                        for (int i = 0; i < books.size(); i++) {
+                            if ((books.get(i).getColonne() == repColonne) || boolVerifColonne){
+                                boolVerifColonne = true;
+                                if (books.get(i).getRangee() == repRangee){
+                                    System.out.println("Cette position est déjà occupé");
+                                    txtError.setText("Cette position est déjà occupé");
+                                    break;
+                                }
+                            }
+                    }
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("index out of bounds");
+                    }
+                    if (!boolVerifColonne){
+                        txtError.setText("");
+                        books.add(myBook);
+                        Clear();
+                        contentMain.getChildren().remove(formumaire);
+                    }
                 }else if (!dateValide){
-                    System.out.println("Veuillez rentrez une date valide");
+                    txtError.setText("Veuillez rentrez une date valide");
                 }
                 else if (!conditionColonne && !conditionRangee){
-                    System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
+                    txtError.setText("Veuillez rentrez un numero \nde rangée et colonne valide");
                 }
                 else if (!conditionColonne){
-                    System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
+                    txtError.setText("Veuillez saisir une colonne \ncomprise entre 1 et 7");
                 }
                 else if(!conditionRangee){
-                    System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
+                    txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 7");
 
                 }else {
-                    System.out.println("Il manque des informations pour la modifications ...");
+                    txtError.setText("Il manque des informations pour \nl'ajout du livre");
                 }
 
 
@@ -188,6 +238,8 @@ public class BibController implements Initializable {
 
         /* Voir les informations d'un livre */
         tabBib.setOnMouseClicked(selectChamp -> {
+            unDisplayImage();
+
 
             ObservableList<Book> selectedItems = tabBib.getSelectionModel().getSelectedItems();
 
@@ -214,9 +266,27 @@ public class BibController implements Initializable {
                     String repAuteur = champAuteur.getText();
                     String repResume = champResume.getText();
                     String repurlImage = urlImage.getText();
-                    int repColonne = Integer.parseInt(champColonne.getText());
-                    int repRangee = Integer.parseInt(champRangee.getText());
-                    int repParution = Integer.parseInt(champParution.getText());
+                    int repColonne = 0, repRangee = 0, repParution = 0;
+                    if(champColonne.getText().matches("[0-9]*")
+                            && champRangee.getText().matches("[0-9]*")
+                            && champParution.getText().matches("[0-9]*")
+                            && !champColonne.getText().equals("")
+                            && !champParution.getText().equals("")
+                            && !champRangee.getText().equals("") ) {
+
+                        repColonne = Integer.parseInt(champColonne.getText());
+                        repRangee = Integer.parseInt(champRangee.getText());
+                        repParution = Integer.parseInt(champParution.getText());
+                    } else {
+                        if (champColonne.getText().equals("") || champParution.getText().equals("") || champRangee.getText().equals("")){
+                            txtError.setText("Veuillez renseignez les \nchamps manquants");
+                            return;
+                        }
+                        if (!champColonne.getText().matches("[0-9]*") || champRangee.getText().matches("[0-9]*") || !champParution.getText().matches("[0-9]*") ){
+                            txtError.setText("Veuillez rentrer des numéros positifs\npour les champs correspondants");
+                            return;
+                        }
+                    }
 
                     boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
                     boolean conditionColonne = (repColonne>=1 && repColonne <=7);
@@ -231,25 +301,25 @@ public class BibController implements Initializable {
                         Clear();
                         contentMain.getChildren().remove(formumaire);
                     }else if (!dateValide){
-                        System.out.println("Veuillez rentrez une date valide");
+                        txtError.setText("Veuillez rentrez une date valide");
                     }
                     else if (!conditionColonne && !conditionRangee){
-                        System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
+                        txtError.setText("Veuillez rentrez un numero \nde rangée et colonne valide");
                     }
                     else if (!conditionColonne){
-                        System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
+                        txtError.setText("Veuillez saisir une colonne \ncomprise entre 1 et 7");
                     }else if (!conditionRangee){
                         System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
                     }
                     else {
-                        System.out.println("Il manque des informations pour la modifications ...");
+                        txtError.setText("Il manque des informations pour \nla modification du livre");
                     }
 
                     suppr.setOnMouseClicked(supprLivre -> {
 
 
                         if (tabBib.getItems().size() == 0) {
-                            System.out.println("Rien a supprimer");
+                            txtError.setText("Aucun élément a supprimer");
                         } else {
                             if (tabBib.getItems().size() == 1) {  // supprime le formulaire des que le dernier book est supprimé
                                 contentMain.getChildren().remove(formumaire);

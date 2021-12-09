@@ -112,6 +112,11 @@
                         </ImageView>
                     </graphic>
                 </Button>
+            <Label fx:id="txtError" prefHeight="63.0" prefWidth="232.0">
+               <HBox.margin>
+                  <Insets left="250.0" />
+               </HBox.margin>
+            </Label>
             </children>
         </HBox>
     </children>
