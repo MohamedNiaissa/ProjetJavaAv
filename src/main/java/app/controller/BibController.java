@@ -173,7 +173,7 @@ public class BibController implements Initializable {
 
                 boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
                 boolean conditionColonne = (repColonne>=1 && repColonne <=7);
-                boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+                boolean conditionRangee = (repRangee>=1 && repRangee <=5);
                 boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
 
 
@@ -198,7 +198,7 @@ public class BibController implements Initializable {
                     txtError.setText("Veuillez saisir une colonne \ncomprise entre 1 et 7");
                 }
                 else if(!conditionRangee){
-                    txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 7");
+                    txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 5");
 
                 }else {
                     txtError.setText("Il manque des informations pour \nl'ajout du livre");
@@ -208,6 +208,30 @@ public class BibController implements Initializable {
             });
         });
 
+        final boolean[] verifCellule = {false};
+
+
+        suppr.setOnMouseClicked(supprLivre -> {
+
+            if (tabBib.getItems().size() == 0) {
+                txtError.setText("Aucun élément à supprimer");
+                return;
+            } else {
+                if (tabBib.getItems().size() == 1) {  // supprime le formulaire des que le dernier book est supprimé
+                    contentMain.getChildren().remove(formumaire);
+                }
+                try {
+                    TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
+                    books.remove(selectCellSupr.getRow());
+                    Clear();
+                    return;
+                }catch (Exception ignore){}
+
+            }
+
+            txtError.setText("Veuillez selectionner \nune case");
+            System.out.println(("Veuillez selectionner \nune case"));
+        });
 
         /* Voir les informations d'un livre */
         tabBib.setOnMouseClicked(selectChamp -> {
@@ -233,6 +257,8 @@ public class BibController implements Initializable {
                 if (!contentMain.getChildren().contains(formumaire)) {
                     contentMain.getChildren().add(formumaire);
                 }
+
+
 
                 btnValider.setOnMouseClicked(modifier1 -> {
                     String repName = champName.getText();
@@ -263,7 +289,7 @@ public class BibController implements Initializable {
 
                     boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
                     boolean conditionColonne = (repColonne>=1 && repColonne <=7);
-                    boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+                    boolean conditionRangee = (repRangee>=1 && repRangee <=5);
                     boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
 
 
@@ -286,14 +312,25 @@ public class BibController implements Initializable {
                     else if (!conditionColonne){
                         txtError.setText("Veuillez saisir une colonne \ncomprise entre 1 et 7");
                     }else if (!conditionRangee){
-                        txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 7");
+                        txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 5");
                     }
                     else {
                         txtError.setText("Il manque des informations pour \nla modification du livre");
                     }
 
-                    suppr.setOnMouseClicked(supprLivre -> {
+                  /*  suppr.setOnMouseClicked(supprLivre -> {
 
+                        try {
+                            TablePosition selectCellSuprE = tabBib.getSelectionModel().getSelectedCells().get(0);
+                            System.out.println("selectCellSuprE "+ selectCellSuprE);
+
+                            if (selectCellSuprE.equals(0)){
+                                txtError.setText("Veuillez selectionner \nune case");
+                                System.out.println(("Veuillez selectionner \nune case"));
+                            }
+
+
+                        }catch (Exception e){}
 
                         if (tabBib.getItems().size() == 0) {
                             txtError.setText("Aucun élément a supprimer");
@@ -302,13 +339,15 @@ public class BibController implements Initializable {
                                 contentMain.getChildren().remove(formumaire);
                             }
 
-                            TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
-                            books.remove(selectCellSupr.getRow());
-                            Clear();
+                            try {
+                                TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
+                                books.remove(selectCellSupr.getRow());
+                                Clear();
+                            }catch (Exception ignore){}
 
                         }
                     });
-
+*/
 
                 });
 
