@@ -5,6 +5,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 
 import java.net.URL;
@@ -15,6 +16,9 @@ import java.util.concurrent.atomic.AtomicReference;
 
 public class ImcController implements Initializable {
     Converter converter = new Converter();
+
+    @FXML
+    private Slider sliderImc;
 
     @FXML
     private Button btnValid;
@@ -31,11 +35,21 @@ public class ImcController implements Initializable {
     @FXML
     private TextField tfTaille;
 
+    @FXML
+    private Label titleImc;
+
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AtomicBoolean weightOK = new AtomicBoolean(false);
         AtomicBoolean sizeOK = new AtomicBoolean(false);
+
+        /*definition du slider*/
+        sliderImc.setMin(0);
+        sliderImc.setMax(12);
+        sliderImc.setShowTickMarks(true);
+//        sliderImc.setMajorTickUnit(sliderImc.getMax()/5);
+
 
 
         tfPoids.setOnKeyReleased(eventP -> {
@@ -95,28 +109,31 @@ public class ImcController implements Initializable {
                 String imcS = df.format(imcF);
                 tfImc.setText(imcS);
 
+                sliderImc.setValue(imcF);
+
                 if (imcF < 18.4){
                     lblCom.setText("Vous devez manger plus");
+                    sliderImc.setValue(1);
                 }
-                else if (imcF > 18.4 && imcF < 24.9){
+                else if (imcF >= 18.4 && imcF <= 25){
                     lblCom.setText("Votre corpulence est normale");
-
+                    sliderImc.setValue(3);
                 }
-                else if (imcF > 25 && imcF < 29.9){
+                else if (imcF > 25 && imcF <= 30){
                     lblCom.setText("Vous etes en surpoids");
-
+                    sliderImc.setValue(5);
                 }
-                else if (imcF > 30 && imcF < 34.9){
-                    lblCom.setText("Votre obésité est modérée");
-
+                else if (imcF > 30 && imcF <= 35){
+                    lblCom.setText("Vous etes en faible obésité");
+                    sliderImc.setValue(7);
                 }
-                else if (imcF > 35 && imcF < 39.9){
-                    lblCom.setText("Votre obésité est sévère");
-
+                else if (imcF > 35 && imcF <= 40){
+                    lblCom.setText("Vous etes en obésité moyenne");
+                    sliderImc.setValue(9);
                 }
                 else {
-                    lblCom.setText("ATTENTION = Obésité morbide");
-
+                    lblCom.setText("Vous etes en obésité sévère");
+                    sliderImc.setValue(11);
                 }
 
             }
