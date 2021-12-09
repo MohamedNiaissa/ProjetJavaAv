@@ -376,14 +376,19 @@ public class BibController implements Initializable {
      */
     private void displayImage(String imgUrl) {
         Image myImage = null;
-        boolean backgroundLoading = true;
+        boolean backgroundLoading = false;
         String imgName = "" + imgUrl;
                 txtNotFound.setText(" ");
                 imgView.imageProperty().set(null);
                 try {
                     myImage = new Image(imgUrl, backgroundLoading);
                     imgView.setImage(myImage);
-                } catch(Exception ignore) {}
+                    txtNotFound.setText("");
+                } catch(Exception e) {
+                    System.out.println("image not found");
+                    txtNotFound.setText("");
+                    txtNotFound.setText("not found");
+                }
         }
 
 
