@@ -103,13 +103,6 @@ public class BibController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        ArrayList<TextField> champs = new ArrayList();
-        champs.add(champName);
-        champs.add(champColonne);
-        champs.add(champRangee);
-        champs.add(champParution);
-        champs.add(champAuteur);
-
         Date date = new Date();
         Calendar annee = Calendar.getInstance();
         int anneeActuel = annee.get(Calendar.YEAR);
@@ -133,14 +126,6 @@ public class BibController implements Initializable {
 
             btnValider.setOnMouseClicked(addBook -> {
 
-
-                for (int i = 0; i < champs.size(); i++) {
-                    if (champs.get(i).getText().equals("")){
-                        txtError.setText("Veuillez remplir le/les champs manquants");
-                        break;
-                    }
-
-                }
 
                 System.out.println("Ajout");
                 boolean bool = true;
