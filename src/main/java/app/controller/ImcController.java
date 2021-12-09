@@ -48,18 +48,16 @@ public class ImcController implements Initializable {
         sliderImc.setMin(0);
         sliderImc.setMax(12);
         sliderImc.setShowTickMarks(true);
-//        sliderImc.setMajorTickUnit(sliderImc.getMax()/5);
 
-
-
-        tfPoids.setOnKeyReleased(eventP -> {
-            if (tfPoids.getText().matches("[0-9.]*") && tfPoids.getText().length()<= 3) {
+        tfPoids.setOnKeyReleased (eventP -> {
+            if (tfPoids.getText().matches("[0-9.]*") && tfPoids.getText().length()<= 3){
                 weightOK.set(true);
                 lblCom.setText("");
             }
             else if (tfPoids.getText().length() > 3) {
                 weightOK.set(false);
                 tfPoids.deletePreviousChar();
+                lblCom.setText("Limite de 3 chiffres atteinte");
             }
             else {
                 weightOK.set(false);
@@ -76,6 +74,7 @@ public class ImcController implements Initializable {
             else if (tfTaille.getText().length()>4){
                 sizeOK.set(false);
                 tfTaille.deletePreviousChar();
+                lblCom.setText("Limite de 4 caracteres atteinte");
             }
 
             else {
@@ -87,17 +86,17 @@ public class ImcController implements Initializable {
         });
 
         btnValid.setOnMouseClicked(event ->{
-            System.out.println(tfPoids.getText());
-            System.out.println(tfTaille.getText());
 
         /*Check si textfields sont vides */
 
           if (tfTaille.getText().isEmpty()){
-                lblCom.setText("Veuillez entrer votre taille");
+              lblCom.setText("Veuillez entrer votre taille");
+              sizeOK.set(false);
 
             }
           if (tfPoids.getText().isEmpty()) {
-                lblCom.setText("Veuillez entrer votre poids");
+              lblCom.setText("Veuillez entrer votre poids");
+              sizeOK.set(false);
 
             }
 
