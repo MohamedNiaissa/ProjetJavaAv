@@ -82,11 +82,23 @@
                         <MenuItem mnemonicParsing="false" text="Unselect All" />
                     </items>
                 </Menu>
-                <Menu fx:id="hrlpMenu" mnemonicParsing="false" text="Help">
+                <Menu fx:id="hrlpMenu" mnemonicParsing="false" text="Functions">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                  <MenuItem fx:id="menuLib" mnemonicParsing="false" text="Library" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuBin" mnemonicParsing="false" text="Binary converter" />
+                  <MenuItem fx:id="menuHexa" mnemonicParsing="false" text="Hexadecimal converter" />
+                  <MenuItem fx:id="menuRoman" mnemonicParsing="false" text="Roman converter" />
+                  <MenuItem fx:id="menuIMC" mnemonicParsing="false" text="IMC Evaluation" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuArmy" mnemonicParsing="false" text="Army" />
                     </items>
                 </Menu>
+            <Menu fx:id="hrlpMenu1" mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+               </items>
+            </Menu>
             </menus>
         </MenuBar>
         <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">

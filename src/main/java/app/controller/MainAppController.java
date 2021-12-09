@@ -32,6 +32,24 @@ public class MainAppController implements Initializable {
     @FXML
     private MenuItem menuQuit;
 
+    @FXML
+    private MenuItem menuLib;
+
+    @FXML
+    private MenuItem menuBin;
+
+    @FXML
+    private MenuItem menuHexa;
+
+    @FXML
+    private MenuItem menuRoman;
+
+    @FXML
+    private MenuItem menuArmy;
+
+    @FXML
+    private MenuItem menuIMC;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         asideBib.getChildren().removeAll(pageBib, DecHexform);
@@ -46,6 +64,30 @@ public class MainAppController implements Initializable {
 
         menuQuit.setOnAction(action -> {
             System.exit(0);
+        });
+
+        menuArmy.setOnAction(action ->{
+            System.out.println("Army selected");
+        });
+
+        menuBin.setOnAction(action ->{
+            System.out.println("binary converter selected");
+        });
+
+        menuHexa.setOnAction(action ->{
+            System.out.println("headecimal converter selected");
+        });
+
+        menuRoman.setOnAction(action ->{
+            System.out.println("Roman converter selected");
+        });
+
+        menuIMC.setOnAction(action ->{
+            System.out.println("IMC computing selected");
+        });
+
+        menuLib.setOnAction(action ->{
+            System.out.println("Army selected");
         });
 
     }
