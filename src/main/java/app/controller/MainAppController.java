@@ -5,6 +5,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
+import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -79,6 +80,7 @@ public class MainAppController implements Initializable {
 
         menuBin.setOnAction(action ->{
             if (currentStory.get() !=2) {
+                clearScenes(currentStory.get());
 //                asideBib.getChildren().add(); / ajouter la scene dédiée
                 System.out.println(currentStory+" Binary converter selected");
                 currentStory.set(2);
@@ -88,7 +90,6 @@ public class MainAppController implements Initializable {
         menuHexa.setOnAction(action ->{
             if (currentStory.get() !=3) {
                 clearScenes(currentStory.get());
-                asideBib.resize(245,125);
                 asideBib.getChildren().add(DecHexform);
                 System.out.println(currentStory+" Hexadecimal converter selected");
                 currentStory.set(3);
@@ -97,6 +98,7 @@ public class MainAppController implements Initializable {
 
         menuRoman.setOnAction(action ->{
             if (currentStory.get() !=4) {
+                clearScenes(currentStory.get());
 //                asideBib.getChildren().add(); / ajouter la scene dédiée
                 System.out.println(currentStory+" Roman converter selected");
                 currentStory.set(4);
@@ -105,6 +107,7 @@ public class MainAppController implements Initializable {
 
         menuIMC.setOnAction(action ->{
             if (currentStory.get() !=5) {
+                clearScenes(currentStory.get());
 //                asideBib.getChildren().add(); / ajouter la scene dédiée
                 System.out.println(currentStory+" IMC computing selected");
                 currentStory.set(5);
@@ -114,7 +117,6 @@ public class MainAppController implements Initializable {
         menuLib.setOnAction(action ->{
             if (currentStory.get() !=1) {
                 clearScenes(currentStory.get());
-                asideBib.resize(800,600);
                 asideBib.getChildren().add(pageBib);
                 System.out.println(currentStory+" Library selected");
                 currentStory.set(1);
@@ -122,15 +124,18 @@ public class MainAppController implements Initializable {
         });
     }
 
+    /**
+     * Remove the previous scene that was present before a menu choice
+     * @param aScene
+     */
     public void clearScenes(int aScene){
         switch (aScene){
             case 1:asideBib.getChildren().remove(pageBib);
-            case 2:asideBib.getChildren().remove(pageBib);
+//            case 2:asideBib.getChildren().remove(); // add the related FXML
             case 3:asideBib.getChildren().remove(DecHexform);
-            case 4:asideBib.getChildren().remove(pageBib);
-            case 5:asideBib.getChildren().remove(pageBib);
-            case 6:asideBib.getChildren().remove(pageBib);
-
+//            case 4:asideBib.getChildren().remove(); // add the related FXML
+//            case 5:asideBib.getChildren().remove(); // add the related FXML
+//            case 6:asideBib.getChildren().remove(); // add the related FXML
         }
     }
 }

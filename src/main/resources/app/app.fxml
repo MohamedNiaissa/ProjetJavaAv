@@ -47,38 +47,38 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
+<VBox prefHeight="750.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
                 <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem fx:id="newFileMenu" mnemonicParsing="false" text="New" />
-                        <MenuItem fx:id="openFileMenuFileMenu" mnemonicParsing="false" text="Open…" />
-                        <Menu fx:id="openrecentFileMenu" mnemonicParsing="false" text="Open Recent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
-                        <MenuItem fx:id="menuSave" mnemonicParsing="false" text="Save" />
-                        <MenuItem fx:id="menuSaveAs" mnemonicParsing="false" text="Save As…" />
-                        <MenuItem fx:id="menuRevert" mnemonicParsing="false" text="Revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Preferences…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
+                        <MenuItem fx:id="newFileMenu" disable="true" mnemonicParsing="false" text="New" />
+                        <MenuItem fx:id="openFileMenuFileMenu" disable="true" mnemonicParsing="false" text="Open…" />
+                        <Menu fx:id="openrecentFileMenu" disable="true" mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem fx:id="menuClose" disable="true" mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="menuSave" disable="true" mnemonicParsing="false" text="Save" />
+                        <MenuItem fx:id="menuSaveAs" disable="true" mnemonicParsing="false" text="Save As…" />
+                        <MenuItem fx:id="menuRevert" disable="true" mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
                         <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
                 <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Undo" />
-                        <MenuItem mnemonicParsing="false" text="Redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Cut" />
-                        <MenuItem mnemonicParsing="false" text="Copy" />
-                        <MenuItem mnemonicParsing="false" text="Paste" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Select All" />
-                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Undo" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Cut" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Copy" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Paste" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Select All" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Unselect All" />
                     </items>
                 </Menu>
                 <Menu fx:id="hrlpMenu" mnemonicParsing="false" text="Functions">
@@ -95,18 +95,18 @@
                 </Menu>
             <Menu fx:id="hrlpMenu1" mnemonicParsing="false" text="Help">
                <items>
-                  <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                  <MenuItem disable="true" mnemonicParsing="false" text="About MyHelloApp" />
                </items>
             </Menu>
             </menus>
         </MenuBar>
-        <SplitPane focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <SplitPane focusTraversable="true" prefHeight="570.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
             <items>
-                <ScrollPane>
+                <ScrollPane prefHeight="551.0" prefWidth="723.0">
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                             <children>
-                                <VBox fx:id="asideBib" prefHeight="553.0" prefWidth="659.0">
+                                <VBox fx:id="asideBib" prefHeight="610.0" prefWidth="700.0">
                                     <children>
                                         <fx:include fx:id="DecHexform" source="DecHexScene.fxml" />
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
