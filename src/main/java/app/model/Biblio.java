@@ -8,12 +8,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Biblio {
-    private String name,auteur,resume,colonne,rangee,parution;
+    private String name,auteur,resume;
+    private int colonne,rangee,parution;
 
     private final List<Book> bookList = new ArrayList<>();
 
     public Biblio() { };
-    public Biblio(String name, String auteur, String resume,String colonne, String rangee, String parution) {
+    public Biblio(String name, String auteur, String resume,int colonne, int rangee, int parution) {
         this.name = name;
         this.auteur = auteur;
         this.resume = resume;
@@ -47,27 +48,27 @@ public class Biblio {
         this.resume = resume;
     }
 
-    public String getColonne() {
+    public int getColonne() {
         return colonne;
     }
 
-    public void setColonne(String colonne) {
+    public void setColonne(int colonne) {
         this.colonne = colonne;
     }
 
-    public String getRangee() {
+    public int getRangee() {
         return rangee;
     }
 
-    public void setRangee(String rangee) {
+    public void setRangee(int rangee) {
         this.rangee = rangee;
     }
 
-    public String getParution() {
+    public int getParution() {
         return parution;
     }
 
-    public void setParution(String parution) {
+    public void setParution(int parution) {
         this.parution = parution;
     }
 

@@ -95,7 +95,6 @@ public class BibController implements Initializable {
 
 
 
-
         plus.setOnMouseClicked(apparitionForm -> {
 
             contentMain.getChildren().add(formumaire);
@@ -103,12 +102,14 @@ public class BibController implements Initializable {
             btnValider.setOnMouseClicked(addBook -> {
 
                 System.out.println("Ajout");
+
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
-                String repColonne = champColonne.getText();
-                String repRangee = champRangee.getText();
-                String repParution = champParution.getText();
+                int repColonne = Integer.parseInt(champColonne.getText());
+                int repRangee = Integer.parseInt(champRangee.getText());
+                int repParution = Integer.parseInt(champParution.getText());
+
 
                 // definition des différentes colonnes
                 name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
@@ -122,7 +123,7 @@ public class BibController implements Initializable {
 
                 Book myBook = new Book(repName,repAuteur,repResume,repColonne,repRangee,repParution);
 
-                if ((repName != "" && repAuteur != "" && repColonne != "" && repRangee != "" && repParution != "")){
+                if (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals("")){
                     books.add(myBook);
                     /* Effacement des champs après validation*/
                     champColonne.clear();
@@ -150,30 +151,41 @@ public class BibController implements Initializable {
 
             champName.setText(selectedItems.get(0).getName());
             champResume.setText(selectedItems.get(0).getResume());
-            champParution.setText(selectedItems.get(0).getParution());
+            champParution.setText(Integer.toString(selectedItems.get(0).getParution()));
             champAuteur.setText(selectedItems.get(0).getAuteur());
-            champColonne.setText(selectedItems.get(0).getColonne());
-            champRangee.setText(selectedItems.get(0).getRangee());
+            champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
+            champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
 
             contentMain.getChildren().add(formumaire);
 
             btnValider.setOnMouseClicked(modifier1 -> {
-                Book modifyBook = new Book(champName.getText(),champAuteur.getText(),champResume.getText(),champColonne.getText(),champRangee.getText(),champParution.getText());
-                books.set(selectCell.getRow(),modifyBook);
-                System.out.println("Modification");
-                champColonne.clear();
-                champAuteur.clear();
-                champParution.clear();
-                champRangee.clear();
-                champName.clear();
-                champResume.clear();
+                String repName = champName.getText();
+                String repAuteur = champAuteur.getText();
+                String repResume = champResume.getText();
+                int repColonne = Integer.parseInt(champColonne.getText());
+                int repRangee = Integer.parseInt(champRangee.getText());
+                int repParution = Integer.parseInt(champParution.getText());
 
-                contentMain.getChildren().remove(formumaire);
+                if ((!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""))) {
+                    Book modifyBook = new Book(champName.getText(),champAuteur.getText(),champResume.getText(),Integer.parseInt(champColonne.getText()),Integer.parseInt(champRangee.getText()),Integer.parseInt(champParution.getText()));
+                    books.set(selectCell.getRow(),modifyBook);
+                    System.out.println("Modification");
+                    champColonne.clear();
+                    champAuteur.clear();
+                    champParution.clear();
+                    champRangee.clear();
+                    champName.clear();
+                    champResume.clear();
+
+                    contentMain.getChildren().remove(formumaire);
+                }else{
+                    System.out.println("Il manque des informations pour la modifications ...");
+                }
+
             });
 
 
             suppr.setOnMouseClicked(supprLivre -> {
-
 
 
                 if (tabBib.getItems().size() == 0){
