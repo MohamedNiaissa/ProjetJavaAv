@@ -100,7 +100,7 @@ public class BibController implements Initializable {
         ObservableList<Book> books = FXCollections.observableArrayList();
 
 
-//            displayImage(urlImage.getText()); //for further use ...
+//      displayImage(urlImage.getText()); //for further use ...
 /*
         displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
 */
@@ -135,20 +135,26 @@ public class BibController implements Initializable {
 
                 Book myBook = new Book(repName, repAuteur, repResume, repColonne, repRangee, repParution,repurlImage);
 
-                if (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals("")) {
+                boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
+                boolean conditionColonne = (repColonne>=1 && repColonne <=7);
+                boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+                if (conditionAdd && conditionColonne && conditionRangee) {
                     books.add(myBook);
-                    /* Effacement des champs après validation*/
-                    champColonne.clear();
-                    champAuteur.clear();
-                    champParution.clear();
-                    champRangee.clear();
-                    champName.clear();
-                    champResume.clear();
-                    urlImage.clear();
+                    Clear();
 
                     contentMain.getChildren().remove(formumaire);
-                } else {
-                    System.out.println("Veuillez remplir le champ manquant");
+                }else if (!conditionColonne && !conditionRangee){
+                    System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
+                }
+                else if (!conditionColonne){
+                    System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
+                }
+                else if(!conditionRangee){
+                    System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
+
+                }
+                else {
+                    System.out.println("Il manque des informations pour la modifications ...");
                 }
             });
         });
@@ -180,37 +186,28 @@ public class BibController implements Initializable {
                 int repRangee = Integer.parseInt(champRangee.getText());
                 int repParution = Integer.parseInt(champParution.getText());
 
-                if ((!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""))) {
+                boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
+                boolean conditionColonne = (repColonne>=1 && repColonne <=7);
+                boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+
+                if (conditionAdd && conditionColonne && conditionRangee) {
                     Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
                     books.set(selectCell.getRow(), modifyBook);
                     System.out.println("Modification");
-                    champColonne.clear();
-                    champAuteur.clear();
-                    champParution.clear();
-                    champRangee.clear();
-                    champName.clear();
-                    champResume.clear();
-                    urlImage.clear();
-
+                    Clear();
 
                     contentMain.getChildren().remove(formumaire);
-                } else {
+                }else if (!conditionColonne && !conditionRangee){
+                    System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
+                }
+                else if (!conditionColonne){
+                    System.out.println("Veuillez saisir une colonne comprise entre 1 et 7");
+                }else if (!conditionRangee){
+                    System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
+                }
+                else {
                     System.out.println("Il manque des informations pour la modifications ...");
                 }
-
-       /* urlImage.setOnKeyReleased(chargeImage -> {
-        }); */
-
-/*
-        // definition des différentes colonnes
-        name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
-        auteur.setCellValueFactory(new PropertyValueFactory<Book,String>("auteur"));
-        colonne.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
-        rangee.setCellValueFactory(new PropertyValueFactory<Book,String>("rangee"));
-        resume.setCellValueFactory(new PropertyValueFactory<Book,String>("resume"));
-        parution.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
-*/
-
 
                 suppr.setOnMouseClicked(supprLivre -> {
 
@@ -224,13 +221,7 @@ public class BibController implements Initializable {
 
                         TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
                         books.remove(selectCellSupr.getRow());
-                        champColonne.clear();
-                        champAuteur.clear();
-                        champParution.clear();
-                        champRangee.clear();
-                        champName.clear();
-                        champResume.clear();
-                        urlImage.clear();
+                        Clear();
 
                     }
                 });
@@ -272,4 +263,20 @@ public class BibController implements Initializable {
 
             if(imgFound) imgView.setImage(myImage);
         }
+
+
+    /* Effacement des champs après validation*/
+
+        private void Clear(){
+            champColonne.clear();
+            champAuteur.clear();
+            champParution.clear();
+            champRangee.clear();
+            champName.clear();
+            champResume.clear();
+            urlImage.clear();
+
+        }
+
+
     }
