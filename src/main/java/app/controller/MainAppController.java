@@ -3,12 +3,12 @@ package app.controller;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
-import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainAppController implements Initializable {
     @FXML
@@ -52,11 +52,14 @@ public class MainAppController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        asideBib.getChildren().removeAll(pageBib, DecHexform);
+        AtomicInteger currentStory = new AtomicInteger();
+        asideBib.getChildren().removeAll(pageBib, DecHexform); // add all children at the beginning
 
-        btnBib.setOnMouseClicked( btnAction -> {
-            asideBib.getChildren().add(pageBib);
-        });
+/**
+ *             btnBib.setOnMouseClicked( btnAction -> {
+ *                 asideBib.getChildren().add(pageBib);
+ *             });
+ */
 
         menuClose.setOnAction(action -> {
             System.exit(0);
@@ -67,28 +70,67 @@ public class MainAppController implements Initializable {
         });
 
         menuArmy.setOnAction(action ->{
-            System.out.println("Army selected");
+            if (currentStory.get() !=6) {
+//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                System.out.println(currentStory+" Army selected");
+                currentStory.set(6);
+            }
         });
 
         menuBin.setOnAction(action ->{
-            System.out.println("binary converter selected");
+            if (currentStory.get() !=2) {
+//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                System.out.println(currentStory+" Binary converter selected");
+                currentStory.set(2);
+            }
         });
 
         menuHexa.setOnAction(action ->{
-            System.out.println("headecimal converter selected");
+            if (currentStory.get() !=3) {
+                clearScenes(currentStory.get());
+                asideBib.resize(245,125);
+                asideBib.getChildren().add(DecHexform);
+                System.out.println(currentStory+" Hexadecimal converter selected");
+                currentStory.set(3);
+            }
         });
 
         menuRoman.setOnAction(action ->{
-            System.out.println("Roman converter selected");
+            if (currentStory.get() !=4) {
+//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                System.out.println(currentStory+" Roman converter selected");
+                currentStory.set(4);
+            }
         });
 
         menuIMC.setOnAction(action ->{
-            System.out.println("IMC computing selected");
+            if (currentStory.get() !=5) {
+//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                System.out.println(currentStory+" IMC computing selected");
+                currentStory.set(5);
+            }
         });
 
         menuLib.setOnAction(action ->{
-            System.out.println("Army selected");
+            if (currentStory.get() !=1) {
+                clearScenes(currentStory.get());
+                asideBib.resize(800,600);
+                asideBib.getChildren().add(pageBib);
+                System.out.println(currentStory+" Library selected");
+                currentStory.set(1);
+            }
         });
+    }
 
+    public void clearScenes(int aScene){
+        switch (aScene){
+            case 1:asideBib.getChildren().remove(pageBib);
+            case 2:asideBib.getChildren().remove(pageBib);
+            case 3:asideBib.getChildren().remove(DecHexform);
+            case 4:asideBib.getChildren().remove(pageBib);
+            case 5:asideBib.getChildren().remove(pageBib);
+            case 6:asideBib.getChildren().remove(pageBib);
+
+        }
     }
 }

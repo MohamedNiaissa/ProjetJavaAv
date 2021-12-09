@@ -114,7 +114,7 @@ public class BibController implements Initializable {
         });
         plus.setOnMouseClicked(apparitionForm -> {
 
-
+            unDisplayImage();
             if (!contentMain.getChildren().contains(formumaire)){
                 contentMain.getChildren().add(formumaire);
             }

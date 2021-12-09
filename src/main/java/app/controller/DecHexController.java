@@ -25,6 +25,7 @@ public class DecHexController implements Initializable {
 
         txtHexadecimal.setOnKeyReleased(event -> {
             if (txtHexadecimal.getText().matches("(?i)[0-9-abcdef]+")) {
+                System.out.println("Hexa? "+txtHexadecimal.getText());
                 String myDec = Converter.hexToDec(txtHexadecimal.getText());
                 txtDecimal.setText(myDec);
                 txtMessage.setText("verified : " + txtHexadecimal.getText() + " <=> " + Integer.toString(Integer.parseInt(myDec)));
@@ -32,7 +33,8 @@ public class DecHexController implements Initializable {
         });
 
         txtDecimal.setOnKeyReleased(event -> {
-            if(txtDecimal.getText().matches(".*[0-9]$")){
+            if(txtDecimal.getText().matches("[0-9]*")){
+                System.out.println("Decimal ? "+txtDecimal.getText());
                 String hexaValue = Converter.decToHex(txtDecimal.getText());
                 txtHexadecimal.setText(hexaValue);
                 txtMessage.setText("verified : " + txtDecimal.getText() + " <=> " + Integer.toHexString(Integer.parseInt(txtDecimal.getText())));
