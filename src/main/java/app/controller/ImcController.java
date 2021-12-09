@@ -1,8 +1,6 @@
 package app.controller;
 
 import app.model.Converter;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
@@ -11,8 +9,9 @@ import javafx.scene.control.TextField;
 
 import java.net.URL;
 import java.text.DecimalFormat;
-import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.concurrent.atomic.AtomicBoolean;
+import java.util.concurrent.atomic.AtomicReference;
 
 public class ImcController implements Initializable {
     Converter converter = new Converter();
@@ -35,20 +34,41 @@ public class ImcController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+        AtomicBoolean weightOK = new AtomicBoolean(false);
+        AtomicBoolean sizeOK = new AtomicBoolean(false);
 
-        /* creation arrayList pour decomposer ce qui est tapé puis supprimer lettres et remplacer , par . ou try catch*/
+
         tfPoids.setOnKeyReleased(eventP -> {
-            if (tfPoids.getText().matches("[0-9.]*")) {
-                if (tfPoids.getText().length() > 3) tfPoids.deletePreviousChar();
-            }else {
+            if (tfPoids.getText().matches("[0-9.]*") && tfPoids.getText().length()<= 3) {
+                weightOK.set(true);
+                lblCom.setText("");
+            }
+            else if (tfPoids.getText().length() > 3) {
+                weightOK.set(false);
+                tfPoids.deletePreviousChar();
+            }
+            else {
+                weightOK.set(false);
                 System.out.println("Illegal character.");
-                //if (tfPoids.getText().length() > 3) tfPoids.;
+                lblCom.setText("Veuillez entrer un poids valide");
             }
         });
         tfTaille.setOnKeyReleased(eventT ->{
-            if (tfTaille.getText().matches("[0-9.]*")) {
-                if (tfTaille.getText().length() > 5) tfPoids.deletePreviousChar();
-            } else System.out.println("Illegal character.");
+            if (tfTaille.getText().matches("[0-9.]*") && tfTaille.getText().length() <=4) {
+                sizeOK.set(true);
+                lblCom.setText("");
+            }
+
+            else if (tfTaille.getText().length()>4){
+                sizeOK.set(false);
+                tfTaille.deletePreviousChar();
+            }
+
+            else {
+                sizeOK.set(false);
+                System.out.println("Illegal character.");
+                lblCom.setText("Veuillez entrer une taille valide");
+            }
 
         });
 
@@ -58,25 +78,19 @@ public class ImcController implements Initializable {
 
         /*Check si textfields sont vides */
 
-            if (tfTaille.getText().isEmpty() || tfPoids.getText().isEmpty()) {
-                lblCom.setText("Veuillez entrer votre taille et/ou poids");
-            }
-          /* if (tfTaille.getText().isEmpty()){
+          if (tfTaille.getText().isEmpty()){
                 lblCom.setText("Veuillez entrer votre taille");
 
             }
-            if (tfPoids.getText().isEmpty()) {
+          if (tfPoids.getText().isEmpty()) {
                 lblCom.setText("Veuillez entrer votre poids");
 
-            }*/
-
-            converter.ImcResult(tfPoids.getText(), tfTaille.getText());
-            float imcF = converter.ImcResult(tfPoids.getText(),tfTaille.getText());
-
+            }
 
             /* Si NON Vide */
-            if (!(tfPoids.getText().isEmpty() && tfTaille.getText().isEmpty())){
-
+//
+            if(sizeOK.get() && weightOK.get()){
+                float imcF = converter.ImcResult(tfPoids.getText(), tfTaille.getText());
                 DecimalFormat df = new DecimalFormat("#######.##");
                 String imcS = df.format(imcF);
                 tfImc.setText(imcS);
