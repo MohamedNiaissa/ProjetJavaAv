@@ -8,19 +8,29 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Biblio {
-    private String name,auteur,resume;
+    private String name,auteur,resume,url;
     private int colonne,rangee,parution;
 
     private final List<Book> bookList = new ArrayList<>();
 
     public Biblio() { };
-    public Biblio(String name, String auteur, String resume,int colonne, int rangee, int parution) {
+
+    public String getUrl() {
+        return url;
+    }
+
+    public void setUrl(String url) {
+        this.url = url;
+    }
+
+    public Biblio(String name, String auteur, String resume, int colonne, int rangee, int parution, String url) {
         this.name = name;
         this.auteur = auteur;
         this.resume = resume;
         this.colonne = colonne;
         this.rangee = rangee;
         this.parution = parution;
+        this.url = url;
 
     }
 

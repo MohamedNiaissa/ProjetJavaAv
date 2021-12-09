@@ -9,10 +9,16 @@ import javafx.fxml.Initializable;
 
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -94,6 +100,11 @@ public class BibController implements Initializable {
         ObservableList<Book> books = FXCollections.observableArrayList();
 
 
+//            displayImage(urlImage.getText()); //for further use ...
+/*
+        displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
+*/
+
 
         plus.setOnMouseClicked(apparitionForm -> {
 
@@ -106,24 +117,25 @@ public class BibController implements Initializable {
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
+                String repurlImage = urlImage.getText();
                 int repColonne = Integer.parseInt(champColonne.getText());
                 int repRangee = Integer.parseInt(champRangee.getText());
                 int repParution = Integer.parseInt(champParution.getText());
 
 
                 // definition des différentes colonnes
-                name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
-                auteur.setCellValueFactory(new PropertyValueFactory<Book,String>("auteur"));
-                colonne.setCellValueFactory(new PropertyValueFactory<Book,String>("colonne"));
-                rangee.setCellValueFactory(new PropertyValueFactory<Book,String>("rangee"));
-                resume.setCellValueFactory(new PropertyValueFactory<Book,String>("resume"));
-                parution.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
+                name.setCellValueFactory(new PropertyValueFactory<Book, String>("name"));
+                auteur.setCellValueFactory(new PropertyValueFactory<Book, String>("auteur"));
+                colonne.setCellValueFactory(new PropertyValueFactory<Book, String>("colonne"));
+                rangee.setCellValueFactory(new PropertyValueFactory<Book, String>("rangee"));
+                resume.setCellValueFactory(new PropertyValueFactory<Book, String>("resume"));
+                parution.setCellValueFactory(new PropertyValueFactory<Book, String>("parution"));
 
                 tabBib.setItems(books);
 
-                Book myBook = new Book(repName,repAuteur,repResume,repColonne,repRangee,repParution);
+                Book myBook = new Book(repName, repAuteur, repResume, repColonne, repRangee, repParution,repurlImage);
 
-                if (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals("")){
+                if (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals("")) {
                     books.add(myBook);
                     /* Effacement des champs après validation*/
                     champColonne.clear();
@@ -132,8 +144,10 @@ public class BibController implements Initializable {
                     champRangee.clear();
                     champName.clear();
                     champResume.clear();
+                    urlImage.clear();
+
                     contentMain.getChildren().remove(formumaire);
-                }else{
+                } else {
                     System.out.println("Veuillez remplir le champ manquant");
                 }
             });
@@ -141,13 +155,11 @@ public class BibController implements Initializable {
 
 
         /* Voir les informations d'un livre */
-        tabBib.setOnMouseClicked(selectChamp-> {
+        tabBib.setOnMouseClicked(selectChamp -> {
 
             ObservableList<Book> selectedItems = tabBib.getSelectionModel().getSelectedItems();
-            System.out.println(selectedItems.get(0));
 
             TablePosition selectCell = tabBib.getSelectionModel().getSelectedCells().get(0);
-
 
             champName.setText(selectedItems.get(0).getName());
             champResume.setText(selectedItems.get(0).getResume());
@@ -155,6 +167,7 @@ public class BibController implements Initializable {
             champAuteur.setText(selectedItems.get(0).getAuteur());
             champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
             champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
+            urlImage.setText(selectedItems.get(0).getUrl());
 
             contentMain.getChildren().add(formumaire);
 
@@ -162,13 +175,14 @@ public class BibController implements Initializable {
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
+                String repurlImage = urlImage.getText();
                 int repColonne = Integer.parseInt(champColonne.getText());
                 int repRangee = Integer.parseInt(champRangee.getText());
                 int repParution = Integer.parseInt(champParution.getText());
 
                 if ((!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""))) {
-                    Book modifyBook = new Book(champName.getText(),champAuteur.getText(),champResume.getText(),Integer.parseInt(champColonne.getText()),Integer.parseInt(champRangee.getText()),Integer.parseInt(champParution.getText()));
-                    books.set(selectCell.getRow(),modifyBook);
+                    Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
+                    books.set(selectCell.getRow(), modifyBook);
                     System.out.println("Modification");
                     champColonne.clear();
                     champAuteur.clear();
@@ -176,42 +190,86 @@ public class BibController implements Initializable {
                     champRangee.clear();
                     champName.clear();
                     champResume.clear();
+                    urlImage.clear();
+
 
                     contentMain.getChildren().remove(formumaire);
-                }else{
+                } else {
                     System.out.println("Il manque des informations pour la modifications ...");
                 }
 
-            });
+       /* urlImage.setOnKeyReleased(chargeImage -> {
+        }); */
+
+/*
+        // definition des différentes colonnes
+        name.setCellValueFactory(new PropertyValueFactory<Book,String>("name"));
+        auteur.setCellValueFactory(new PropertyValueFactory<Book,String>("auteur"));
+        colonne.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
+        rangee.setCellValueFactory(new PropertyValueFactory<Book,String>("rangee"));
+        resume.setCellValueFactory(new PropertyValueFactory<Book,String>("resume"));
+        parution.setCellValueFactory(new PropertyValueFactory<Book,String>("parution"));
+*/
 
 
-            suppr.setOnMouseClicked(supprLivre -> {
+                suppr.setOnMouseClicked(supprLivre -> {
 
 
-                if (tabBib.getItems().size() == 0){
-                    System.out.println("Rien a supprimer");
-                }else {
+                    if (tabBib.getItems().size() == 0) {
+                        System.out.println("Rien a supprimer");
+                    } else {
+                        if (tabBib.getItems().size() == 1) {  // supprime le formulaire des que le dernier book est supprimé
+                            contentMain.getChildren().remove(formumaire);
+                        }
 
-                    if (tabBib.getItems().size() == 1){  // supprime le formulaire des que le dernier book est supprimé
-                        contentMain.getChildren().remove(formumaire);
+                        TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
+                        books.remove(selectCellSupr.getRow());
+                        champColonne.clear();
+                        champAuteur.clear();
+                        champParution.clear();
+                        champRangee.clear();
+                        champName.clear();
+                        champResume.clear();
+                        urlImage.clear();
+
                     }
+                });
 
-                    TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
-                    books.remove(selectCellSupr.getRow());
-
-                    champColonne.clear();
-                    champAuteur.clear();
-                    champParution.clear();
-                    champRangee.clear();
-                    champName.clear();
-                    champResume.clear();
-                }
 
             });
-
-
 
         });
 
     }
-}
+
+                /**
+                 * displays linked image of a book
+                 * @param imgUrl image link stored with the book details in biblio/library
+                 *               image can be local if name is not beginning with "http"
+                 */
+        private void displayImage(String imgUrl) {
+            boolean imgIsLocal = true;
+            boolean imgFound = true;
+
+            Image myImage = null;
+            boolean backgroundLoading = true;
+            String imgName = urlImage.getText();
+            if (imgName.substring(0,4).equals("http")) imgIsLocal = false;
+            else imgUrl = "/Users/mohamed/Documents/semainesJavaAv/projetJavaAvancee/ProjetJavaAv/src/main/resources/app/img/interdit.png";
+
+            if(imgIsLocal) {
+                InputStream stream = null;
+                try {
+                    System.out.println(imgUrl);
+                    stream = new FileInputStream(imgUrl);
+                } catch (FileNotFoundException e) {
+                    imgFound = false;
+                    System.out.println("Stream impossible ...");
+                    e.printStackTrace();
+                }
+                if(imgFound) myImage = new Image(stream);
+            } else myImage = new Image(imgUrl, backgroundLoading);
+
+            if(imgFound) imgView.setImage(myImage);
+        }
+    }
