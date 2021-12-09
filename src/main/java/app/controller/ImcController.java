@@ -49,6 +49,7 @@ public class ImcController implements Initializable {
         sliderImc.setMax(12);
         sliderImc.setShowTickMarks(true);
 
+        /* Check si conditions remplies pour valider la saisi */
         tfPoids.setOnKeyReleased (eventP -> {
             if (tfPoids.getText().matches("[0-9.]*") && tfPoids.getText().length()<= 3){
                 weightOK.set(true);
