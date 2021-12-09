@@ -20,6 +20,8 @@ import java.io.FileNotFoundException;
 import java.io.InputStream;
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.ResourceBundle;
 
 public class BibController implements Initializable {
@@ -96,6 +98,10 @@ public class BibController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
+        Date date = new Date();
+        Calendar annee = Calendar.getInstance();
+        int anneeActuel = annee.get(Calendar.YEAR);
+
         contentMain.getChildren().remove(formumaire);
 
 
@@ -141,12 +147,19 @@ public class BibController implements Initializable {
                 boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
                 boolean conditionColonne = (repColonne>=1 && repColonne <=7);
                 boolean conditionRangee = (repRangee>=1 && repRangee <=7);
-                if (conditionAdd && conditionColonne && conditionRangee) {
+                boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
+                System.out.println(" Add Valeur dateValide = " + dateValide);
+
+
+                if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
                     books.add(myBook);
                     Clear();
 
                     contentMain.getChildren().remove(formumaire);
-                }else if (!conditionColonne && !conditionRangee){
+                }else if (!dateValide){
+                    System.out.println("Veuillez rentrez une date valide");
+                }
+                else if (!conditionColonne && !conditionRangee){
                     System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
                 }
                 else if (!conditionColonne){
@@ -159,6 +172,8 @@ public class BibController implements Initializable {
                 else {
                     System.out.println("Il manque des informations pour la modifications ...");
                 }
+
+
             });
         });
 
@@ -177,7 +192,7 @@ public class BibController implements Initializable {
             champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
             champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
             urlImage.setText(selectedItems.get(0).getUrl());
-            displayImage(urlImage.getText());
+            if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
 
             contentMain.getChildren().add(formumaire);
 
@@ -193,15 +208,20 @@ public class BibController implements Initializable {
                 boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
                 boolean conditionColonne = (repColonne>=1 && repColonne <=7);
                 boolean conditionRangee = (repRangee>=1 && repRangee <=7);
+                boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
+                System.out.println(" Modif Valeur dateValide = " + !dateValide);
 
-                if (conditionAdd && conditionColonne && conditionRangee) {
+
+                if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
                     Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
                     books.set(selectCell.getRow(), modifyBook);
                     System.out.println("Modification");
                     Clear();
-
                     contentMain.getChildren().remove(formumaire);
-                }else if (!conditionColonne && !conditionRangee){
+                }else if (!dateValide){
+                    System.out.println("Veuillez rentrez une date valide");
+                }
+                else if (!conditionColonne && !conditionRangee){
                     System.out.println("Veuillez rentrez un numero de rangée et colonne valide");
                 }
                 else if (!conditionColonne){
