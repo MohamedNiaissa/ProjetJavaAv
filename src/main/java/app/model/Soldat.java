@@ -5,12 +5,12 @@ import javafx.scene.control.TreeItem;
 
 public class Soldat extends General {
     private final int indexID;
-    private final int soldatGrade, soldatHP;
-    private final String soldatName;
-    private final TreeItem<String> soldat = new TreeItem<>(" ");
+    private int soldatHP;
+    private String soldatName, soldatGrade;
+    private final TreeItem<String> soldat = new TreeItem<>("Soldier");
     private final Label soldatText = new Label();
 
-    public Soldat(int ID, String Name, int Grade, int HP) {
+    public Soldat(int ID, String Name, String Grade, int HP) {
         super();
         this.indexID = ID;
         this.soldatName = Name;
@@ -22,8 +22,9 @@ public class Soldat extends General {
         parent.getChildren().add(soldat);
     }
 
-    public void setSoldatGraphics() {
-        soldatText.setText("SOLDAT\n" + "Name : " + soldatName + " , Grade : " + soldatGrade + " , HP : " + soldatHP);
+    public void setSoldatGraphics(int index) {
+        soldatText.setText("SOLDAT");
+        soldat.setValue(soldat.getValue() + " " + index);
         this.soldat.setGraphic(soldatText);
     }
 
@@ -33,6 +34,26 @@ public class Soldat extends General {
 
     public int getSoldatHP() {
         return this.soldatHP;
+    }
+
+    public String getSoldatName() {
+        return this.soldatName;
+    }
+
+    public String getSoldatGrade() {
+        return this.soldatGrade;
+    }
+
+    public void setSoldatName(String newName) {
+        this.soldatName = newName;
+    }
+
+    public void setSoldatGrade(String newGrade) {
+        this.soldatGrade = newGrade;
+    }
+
+    public void setSoldatHP(int newHP) {
+        this.soldatHP = newHP;
     }
 
     @Override

@@ -1,10 +1,7 @@
 package app.model;
 
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,10 +9,8 @@ import java.util.List;
 public class General extends Army {
     private int GeneralID;
     private String GeneralName;
-    private final List<Soldat> soldatsList = new ArrayList<>();
-    private final TreeItem<String> general = new TreeItem<>(" ");
-    private final Button generalCB = new Button("Create Soldat");
-    private final Button generalEdit = new Button("Edit general");
+    private static final List<Soldat> soldatsList = new ArrayList<>();
+    private final TreeItem<String> general = new TreeItem<>("General");
     private final Label generalText = new Label();
 
     public General() {}
@@ -23,34 +18,29 @@ public class General extends Army {
         this.GeneralID = ID;
     }
 
+    public void setGeneralName(String generalName) {
+        this.GeneralName = generalName;
+    }
+
     public void setTreeGeneral(TreeItem<String> root) {
         root.getChildren().add(general);
     }
 
-    public void setGeneralButton() {
-        VBox cellVbox = new VBox(10);
-        HBox cellHBox = new HBox(10);
-        generalText.setText("GENERAL\n" + "Name : " + GeneralName +  " , Troops size : " + soldatsList.size());
-        cellHBox.getChildren().addAll(generalCB, generalEdit);
-        cellVbox.getChildren().addAll(generalText, cellHBox);
-//        this.general.setGraphic(generalCB);
-        this.general.setGraphic(cellVbox);
-//        this.general.setValue(generalCB + "hello");
+    public void setGeneralButton(int index) {
+        generalText.setText("GENERAL");
+        general.setValue(general.getValue() + " " + index);
+        this.general.setGraphic(generalText);
     }
 
     public TreeItem<String> getTIG() {
         return this.general;
     }
 
-    public Button getGeneralButton() {
-        return this.generalCB;
-    }
-
     public void addSoldat(Soldat soldat) {
         this.soldatsList.add(soldat);
     }
 
-    public List<Soldat> getSList() {
+    public static List<Soldat> getSList() {
         return soldatsList;
     }
 
@@ -78,7 +68,7 @@ public class General extends Army {
 
         for(Soldat soldat : soldatsList) {
             soldat.setTreeSoldat(getTIG());
-            soldat.setSoldatGraphics();
+//            soldat.setSoldatGraphics();
         }
     }
 
@@ -88,6 +78,10 @@ public class General extends Army {
 
     public Label getGeneralText() {
         return this.generalText;
+    }
+
+    public String getGeneralName() {
+        return this.GeneralName;
     }
 
     @Override

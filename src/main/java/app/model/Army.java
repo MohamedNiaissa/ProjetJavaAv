@@ -1,18 +1,16 @@
 package app.model;
 
-import javafx.scene.control.Button;
-import javafx.scene.control.Label;
-import javafx.scene.control.TreeItem;
-import javafx.scene.control.TreeView;
+import javafx.scene.control.*;
+import javafx.scene.control.skin.VirtualContainerBase;
 import javafx.scene.layout.VBox;
 
+import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
     private final List<General> generalsList = new ArrayList<>();
-    private final TreeItem<String> root = new TreeItem<>(" ");
-    private final Button btnT = new Button("Create General");
+    private final TreeItem<String> root = new TreeItem<>("Army");
     private final Label rootName = new Label();
 
     public Army() {}
@@ -22,14 +20,10 @@ public class Army {
     }
 
     public void setRootButton(TreeView<String> treeView) {
-        VBox cellVBox = new VBox(10);
         rootName.setText("ARMY");
-        cellVBox.getChildren().addAll(rootName,btnT);
-        treeView.getRoot().setGraphic(cellVBox);
-    }
-
-    public Button getRootButton() {
-        return this.btnT;
+        rootName.setMaxWidth(Double.MAX_VALUE);
+        rootName.setStyle("-fx-background-color: red");
+        treeView.getRoot().setGraphic(rootName);
     }
 
     public void addGeneral(General general) {
@@ -38,6 +32,24 @@ public class Army {
 
     public List<General> getArmyList() {
         return generalsList;
+    }
+
+    public Label getRootName() {
+        return rootName;
+    }
+
+    public TreeItem<String> getTreeRoot() {
+        return root;
+    }
+
+    public void getSkinProperty() {
+        try {
+            Field flowField = VirtualContainerBase.class.getDeclaredField("flow");
+            flowField.setAccessible(true);
+            System.out.println(flowField.getInt(root));
+        } catch (NoSuchFieldException ignored) {} catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
