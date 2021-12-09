@@ -224,6 +224,7 @@ public class BibController implements Initializable {
                     TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
                     books.remove(selectCellSupr.getRow());
                     Clear();
+                    txtError.setText("");
                     return;
                 }catch (Exception ignore){}
 
