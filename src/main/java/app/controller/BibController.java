@@ -90,6 +90,9 @@ public class BibController implements Initializable {
     @FXML
     private Button suppr;
 
+    @FXML
+    private Label txtNotFound;
+
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
@@ -99,13 +102,10 @@ public class BibController implements Initializable {
         /* List vue par JavaFX*/
         ObservableList<Book> books = FXCollections.observableArrayList();
 
-
-//      displayImage(urlImage.getText()); //for further use ...
-/*
-        displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
-*/
-
-
+        urlImage.setOnKeyReleased(event -> {
+            System.out.println("url is moving on");
+            if(!"".equals(urlImage.getText())) displayImage(urlImage.getText());
+        });
         plus.setOnMouseClicked(apparitionForm -> {
 
             contentMain.getChildren().add(formumaire);
@@ -114,6 +114,9 @@ public class BibController implements Initializable {
 
                 System.out.println("Ajout");
 
+
+//            displayImage("https://cdn.futura-sciences.com/buildsv6/images/wide1920/8/e/2/8e24d3c12f_98112_01-intro-1474.jpg");
+                unDisplayImage();
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
@@ -174,6 +177,7 @@ public class BibController implements Initializable {
             champColonne.setText(Integer.toString(selectedItems.get(0).getColonne()));
             champRangee.setText(Integer.toString(selectedItems.get(0).getRangee()));
             urlImage.setText(selectedItems.get(0).getUrl());
+            displayImage(urlImage.getText());
 
             contentMain.getChildren().add(formumaire);
 
@@ -233,35 +237,29 @@ public class BibController implements Initializable {
 
     }
 
-                /**
-                 * displays linked image of a book
-                 * @param imgUrl image link stored with the book details in biblio/library
-                 *               image can be local if name is not beginning with "http"
-                 */
-        private void displayImage(String imgUrl) {
-            boolean imgIsLocal = true;
-            boolean imgFound = true;
+    /**
+     * remove the image from the imageView
+     */
+    private void unDisplayImage() {
+            imgView.imageProperty().set(null);
+    }
 
-            Image myImage = null;
-            boolean backgroundLoading = true;
-            String imgName = urlImage.getText();
-            if (imgName.substring(0,4).equals("http")) imgIsLocal = false;
-            else imgUrl = "/Users/mohamed/Documents/semainesJavaAv/projetJavaAvancee/ProjetJavaAv/src/main/resources/app/img/interdit.png";
 
-            if(imgIsLocal) {
-                InputStream stream = null;
-                try {
-                    System.out.println(imgUrl);
-                    stream = new FileInputStream(imgUrl);
-                } catch (FileNotFoundException e) {
-                    imgFound = false;
-                    System.out.println("Stream impossible ...");
-                    e.printStackTrace();
-                }
-                if(imgFound) myImage = new Image(stream);
-            } else myImage = new Image(imgUrl, backgroundLoading);
+    /**
+     * displays linked image of a book in the form
+     * @param imgUrl URL of image
+     */
+    private void displayImage(String imgUrl) {
+        Image myImage = null;
+        boolean backgroundLoading = true;
+        String imgName = "" + imgUrl;
 
-            if(imgFound) imgView.setImage(myImage);
+        System.out.println("imgUrl : " + imgUrl);
+        System.out.println("imgName: " + imgName);
+                txtNotFound.setText(" ");
+                imgView.imageProperty().set(null);
+                myImage = new Image(imgUrl, backgroundLoading);
+                imgView.setImage(myImage);
         }
 
 
