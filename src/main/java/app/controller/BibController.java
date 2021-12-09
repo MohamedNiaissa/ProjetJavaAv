@@ -294,12 +294,32 @@ public class BibController implements Initializable {
                     boolean dateValide = (repParution <= anneeActuel && repParution >= 0);
 
 
+                    boolean boolVerifColonneModif = false;
+                    try{
+                        for (int i = 0; i < books.size(); i++) {
+                            if ((books.get(i).getColonne() == repColonne) || boolVerifColonneModif){
+                                boolVerifColonneModif = true;
+                                if (books.get(i).getRangee() == repRangee){
+                                    System.out.println("Cette position est déjà occupé");
+                                    txtError.setText("Cette position est déjà occupé");
+                                    break;
+                                }
+                            }
+                        }
+                    }catch (IndexOutOfBoundsException e){
+                        System.out.println("index out of bounds");
+                    }
                     if (conditionAdd && conditionColonne && conditionRangee && dateValide) {
-                        Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
-                        books.set(selectCell.getRow(), modifyBook);
-                        System.out.println("Modification");
-                        Clear();
-                        contentMain.getChildren().remove(formumaire);
+                        if (!boolVerifColonneModif){
+                            Book modifyBook = new Book(champName.getText(), champAuteur.getText(), champResume.getText(), Integer.parseInt(champColonne.getText()), Integer.parseInt(champRangee.getText()), Integer.parseInt(champParution.getText()), urlImage.getText());
+                            books.set(selectCell.getRow(), modifyBook);
+                            System.out.println("Modification");
+                            Clear();
+                            contentMain.getChildren().remove(formumaire);
+                        }else {
+                            txtError.setText("Echec modification, \nlivre déjà placé à cette position");
+                        }
+
                     }else if (!dateValide){
                         txtError.setText("Veuillez rentrez une date valide");
                     }
@@ -309,7 +329,7 @@ public class BibController implements Initializable {
                     else if (!conditionColonne){
                         txtError.setText("Veuillez saisir une colonne \ncomprise entre 1 et 7");
                     }else if (!conditionRangee){
-                        System.out.println("Veuillez saisir une rangée comprise entre 1 et 7");
+                        txtError.setText("Veuillez saisir une rangée \ncomprise entre 1 et 7");
                     }
                     else {
                         txtError.setText("Il manque des informations pour \nla modification du livre");
