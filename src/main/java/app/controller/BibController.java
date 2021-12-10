@@ -282,8 +282,13 @@ public class BibController implements Initializable {
         System.out.println("imgName: " + imgName);
                 txtNotFound.setText(" ");
                 imgView.imageProperty().set(null);
-                myImage = new Image(imgUrl, backgroundLoading);
-                imgView.setImage(myImage);
+                try{
+                    myImage = new Image(imgUrl, backgroundLoading);
+                    imgView.setImage(myImage);
+                    txtNotFound.setText("");
+                }catch (Exception e){
+                    txtNotFound.setText("not found");
+                }
         }
 
 

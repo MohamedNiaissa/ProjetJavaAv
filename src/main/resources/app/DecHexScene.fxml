@@ -36,8 +36,8 @@
             </VBox>
             <VBox prefHeight="81.0" prefWidth="158.0">
                <children>
-                  <TextField fx:id="txtDecimal" alignment="CENTER_RIGHT" text="10217" />
-                  <TextField fx:id="txtHexadecimal" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="85.0" text="9E27" />
+                  <TextField fx:id="txtDecimal" alignment="CENTER_RIGHT" />
+                  <TextField fx:id="txtHexadecimal" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="85.0" />
                </children>
             </VBox>
          </children>
