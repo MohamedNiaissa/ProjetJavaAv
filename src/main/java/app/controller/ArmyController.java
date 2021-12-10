@@ -228,8 +228,17 @@ public class ArmyController implements Initializable {
                 }
             }
 
+
+            int convertHp;
+            try {
+                convertHp = Integer.parseInt(formHP.getText());
+
+            }catch (NumberFormatException ignore) {
+
+                return;
+            }
             general.addSoldat(new Soldat(general.getSList().size(), formName.getText(), formAtt.getText(),
-                    Integer.parseInt(formHP.getText())));
+                   convertHp));
             int SID = general.getSList().size() - 1;
             Soldat soldat = general.getSList().get(SID);
             soldat.setTreeSoldat(general.getTIG());
@@ -260,7 +269,16 @@ public class ArmyController implements Initializable {
         btnAddEdit.setOnMouseClicked(mouseClick -> {
             finalSoldat.setSoldatName(formName.getText());
             finalSoldat.setSoldatGrade(formAtt.getText());
-            finalSoldat.setSoldatHP(Integer.parseInt(formHP.getText()));
+
+            int convertHpEdit;
+
+            try{
+                convertHpEdit = Integer.parseInt(formHP.getText());
+            }catch (Exception ignored){
+                return;
+            }
+
+            finalSoldat.setSoldatHP(convertHpEdit);
             finalSoldat.setSoldatText(formName.getText());
 
             hideAndResetStats(false, false, "", "");

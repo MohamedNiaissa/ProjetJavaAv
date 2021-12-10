@@ -51,7 +51,11 @@ public class BibController implements Initializable {
 
         contentMain.getChildren().remove(formumaire);
 
+        /**
+         * Condition concernagt la validité des champs obligatoire
+         */
         champParution.setOnKeyTyped(keyTyped -> {
+
             if (!Objects.equals(champParution.getText(), "")) {
                 txtError.setText("");
                 btnValider.setDisable(false);
@@ -147,11 +151,8 @@ public class BibController implements Initializable {
                 txtError.setText("");
                 btnValider.setDisable(false);
 
-                if (champRangee.getText() == null){
-                    txtError.setText("Veuillez remplir le/les champs manquants");
-                    btnValider.setDisable(true);
-                }
-                else if (champRangee.getText().length() > 2) {
+
+                if (champRangee.getText().length() > 2) {
                     txtError.setText("Veuillez insérer une rangée comprise entre 1 et 5");
                     champParution.deletePreviousChar();
                     btnValider.setDisable(true);
@@ -161,7 +162,7 @@ public class BibController implements Initializable {
                     btnValider.setDisable(true);
 
                 } else if (Integer.parseInt(champRangee.getText()) > 5 || Integer.parseInt(champRangee.getText()) < 1) {
-                    txtError.setText("Veuillez insérer une rangée comprise entre 1 et 5");
+                    txtError.setText("Veuillez insérer une rangée \ncomprise entre 1 et 5");
                     btnValider.setDisable(true);
                 }
             } else {
@@ -175,22 +176,31 @@ public class BibController implements Initializable {
         /* List vue par JavaFX*/
         ObservableList<Book> books = FXCollections.observableArrayList();
 
+        // affichage de l'image en fonction de chacune des touches tapées dans le champ url
         urlImage.setOnKeyReleased(event -> {
             if (!"".equals(urlImage.getText())) displayImage(urlImage.getText());
         });
+
+        /**
+         * Evenement qui se déroule dès que l'on clique sur le bourton plus
+         */
         plus.setOnMouseClicked(apparitionForm -> {
+
 
             txtError.setText("");
             unDisplayImage();
+
+            //Verification de l'existance ou pas du formulaire, si present dans ce cas là pas de création par dessus sinon on le crée
             if (!contentMain.getChildren().contains(formumaire)) {
                 contentMain.getChildren().add(formumaire);
             }
 
+            // Evenement quand on clique d'abord sur le bouton plus pui s valider
             btnValider.setOnMouseClicked(addBook -> {
 
                 boolean bool = true;
 
-                unDisplayImage();
+                unDisplayImage(); // On retire l'image de son champ à chaque fois que l'on click sur un élément du tableau
                 String repName = champName.getText();
                 String repAuteur = champAuteur.getText();
                 String repResume = champResume.getText();
@@ -198,6 +208,8 @@ public class BibController implements Initializable {
                 int repColonne;
                 int repRangee;
                 int repParution;
+
+                // Prévention des erreurs de conversion de String en entier pour les champs correspondants, nottament si le champ est vide
                 try {
                     repColonne = Integer.parseInt(champColonne.getText());
                 }catch (NumberFormatException ignore) {
@@ -219,6 +231,7 @@ public class BibController implements Initializable {
                     return;
                 }
 
+                // Verification de tout les champs si ils sont vides
                 boolean conditionAdd = (!repName.equals("") && !repAuteur.equals("") && !Integer.toString(repColonne).equals("") && !Integer.toString(repRangee).equals("") && !Integer.toString(repParution).equals(""));
 
                 // definition des différentes colonnes
@@ -230,6 +243,7 @@ public class BibController implements Initializable {
                 parution.setCellValueFactory(new PropertyValueFactory<Book, String>("parution"));
                 tabBib.setItems(books);
 
+                // Ajout du livre dans la bibliotheque si la condition est verifie
                 if (conditionAdd){
                     Book myBook = new Book(repName, repAuteur, repResume, repColonne, repRangee, repParution, repurlImage);
 
@@ -257,7 +271,7 @@ public class BibController implements Initializable {
                 try {
                     TablePosition selectCellSupr = tabBib.getSelectionModel().getSelectedCells().get(0);
                     books.remove(selectCellSupr.getRow());
-                    Clear();
+                    Clear(); // Vider contenu du champs apres utilisation
                     txtError.setText("");
                     return;
                 } catch (Exception ignore) {}
@@ -272,6 +286,9 @@ public class BibController implements Initializable {
             ObservableList<Book> selectedItems = tabBib.getSelectionModel().getSelectedItems();
 
             if (selectedItems.size() != 0) {
+                /**
+                 * Condition de verification concernant l'existance des elements dans le tableau
+                 */
                 TablePosition selectCell = tabBib.getSelectionModel().getSelectedCells().get(0);
 
                 champName.setText(selectedItems.get(0).getName());
@@ -319,9 +336,9 @@ public class BibController implements Initializable {
 
 
                     Book modifyBook = new Book(repName, repAuteur, repResume, repColonne, repRangee, repParution, urlImage.getText());
-                    books.set(selectCell.getRow(), modifyBook);
+                    books.set(selectCell.getRow(), modifyBook);  // modification du livre choisi
                     Clear();
-                    contentMain.getChildren().remove(formumaire);
+                    contentMain.getChildren().remove(formumaire); // On retire le formulaire à chaque fois que l'on termine de l'utiliser
                 });
 
             }
@@ -356,8 +373,11 @@ public class BibController implements Initializable {
         }
 
 
-    /* Effacement des champs après validation*/
+
         private void Clear(){
+            /**
+             *  Effacement des champs après validation
+             */
             champColonne.clear();
             champAuteur.clear();
             champParution.clear();

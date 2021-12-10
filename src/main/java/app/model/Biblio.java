@@ -8,10 +8,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Biblio {
+    /*Declaration des différents éléments du constructeur qui serviront au remplissage de la bibliothèeque*/
     private String name,auteur,resume,url;
     private int colonne,rangee,parution;
-
-    private final List<Book> bookList = new ArrayList<>();
 
     public Biblio() { };
 
@@ -81,17 +80,6 @@ public class Biblio {
     public void setParution(int parution) {
         this.parution = parution;
     }
-
-    public List<Book> getBookList() {
-        return bookList;
-    }
-
-
-
-    public void add_book(Book thisBook) {
-        this.bookList.add(thisBook);
-    }
-
 
 
 
