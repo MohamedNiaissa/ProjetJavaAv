@@ -26,6 +26,8 @@ public class DecHexController implements Initializable {
 
         /**
          * Catch input text in the Hexadecimal field
+         * Verifies and handles exception
+         * sends to controller method to transform the Hexadecimal text into Decimal
          */
         txtHexadecimal.setOnKeyReleased(event -> {
             if(txtHexadecimal.getText().length()<8){
@@ -44,6 +46,8 @@ public class DecHexController implements Initializable {
 
         /**
          * Catch input text in the Decimal field
+         * Verifies and handles exception
+         * sends to controller method to transform the Decimal text into Hexadecimal
          */
         txtDecimal.setOnKeyReleased(event -> {
 

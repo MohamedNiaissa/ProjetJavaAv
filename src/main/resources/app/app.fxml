@@ -32,6 +32,7 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
+<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -47,7 +48,7 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="750.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
+<VBox fx:id="mainBox" prefHeight="750.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
@@ -79,6 +80,9 @@
                         <SeparatorMenuItem disable="true" mnemonicParsing="false" />
                         <MenuItem disable="true" mnemonicParsing="false" text="Select All" />
                         <MenuItem disable="true" mnemonicParsing="false" text="Unselect All" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuDark" mnemonicParsing="false" text="Dark theme" />
+                  <MenuItem fx:id="menuLight" mnemonicParsing="false" text="Light theme" />
                     </items>
                 </Menu>
                 <Menu fx:id="hrlpMenu" mnemonicParsing="false" text="Functions">
@@ -139,4 +143,8 @@
             </padding>
         </HBox>
     </children>
+   <stylesheets>
+      <URL value="@styleDark.css" />
+      <URL value="@styleLight.css" />
+   </stylesheets>
 </VBox>

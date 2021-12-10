@@ -9,6 +9,11 @@ import java.util.List;
 
 public class Converter {
 
+    /**
+     * Translate a decimal number (txt) into an Binary number
+     * @param strNumber String from input txtField
+     * @return  a String to be dipslayed into the related txtField
+     */
     public String DecToBin(String strNumber) {
         if(!strNumber.matches(".*[0-9]*")) return "InvalidCharacter";
 
@@ -58,6 +63,11 @@ public class Converter {
         return converted.toString();
     }
 
+    /**
+     * Translate a binary number (txt) into an Decimal number
+     * @param strBinary String from input txtField
+     * @return String to be displayed into the related texfield
+     */
     public String BinToDec(String strBinary) {
         if(!strBinary.matches("[0-9]*")) return "InvalidCharacter";
         if(!strBinary.matches("[01]*")) return "InvalidBinary";
@@ -85,7 +95,8 @@ public class Converter {
 
     /**
      * Translate a decimal number (txt) into an Hexadecimal number
-     * @param dec String from txtfield sent
+     * analyses the String from bottom to top and applies power 16 to digits
+     * @param dec String from input txtField
      * @return Hexadecimal number in a String to be displayed inside the textField
      */
     public static String decToHex(String dec){
@@ -103,8 +114,9 @@ public class Converter {
     }
 
     /**
-     * * Translate aN Hexadecimal number (txt) into an Decimal number
-     * @param hex String from textFiled sent
+     * Translate aN Hexadecimal number (txt) into an Decimal number
+     * analyses the String from bottom to top and applies power 16 to interpreted 16based digit
+     * @param hex String from input txtField
      * @return a String to be displayed inside the txtField as a result
      */
     public static String hexToDec(String hex){
@@ -129,6 +141,12 @@ public class Converter {
         return Integer.toString(dec);
     }
 
+    /**
+     * Translate a decimal number (txt) into a Roman number
+     * Compares each char of decimal String with a typical format Roman digits set linked to their value set and calculate the solution
+     * @param strNumber String from the input txtField
+     * @return a string to displayed into the related txtField
+     */
     public String DecToRom(String strNumber) {
         if(!strNumber.matches("[0-9]*")) return "InvalidCharacter";
         if(strNumber.length() > 4) return "InvalidNumber";
@@ -160,6 +178,12 @@ public class Converter {
         return converted.toString();
     }
 
+    /**
+     * Translate a Roman number (txt) into a decimal number
+     * Compares chars with set of Roman digits each of them linked to a value set and calculate the solution
+     * @param strRomain String from input txtField
+     * @return
+     */
     public String RomToDec(String strRomain) {
         if(!strRomain.matches("[IVXLCDM]*")) return "InvalidCharacter";
         if(strRomain.length() > 9) return "InvalidNumber";

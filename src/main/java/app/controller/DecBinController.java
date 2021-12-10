@@ -22,6 +22,9 @@ public class DecBinController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblTitleIB.setStyle("-fx-background-color: #a29191");
 
+        /**
+         * Event on decimal field handled, catches exception and convert to Binary
+         */
         TFDecimalB.setOnKeyTyped(event -> {
             if(!TFDecimalB.getText().equals("")) {
                 btnValidity.setText("Content Validity : No error detected.");
@@ -49,6 +52,9 @@ public class DecBinController implements Initializable {
             }
         });
 
+        /**
+         * Event on binary field handled, catches exception and convert to decimal
+         */
         TFBinaire.setOnKeyTyped(event -> {
             if(!TFBinaire.getText().equals("")) {
                 btnValidity.setText("Content Validity : No error detected.");

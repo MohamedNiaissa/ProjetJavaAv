@@ -23,6 +23,9 @@ public class DecRomController implements Initializable {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         lblTitleIR.setStyle("-fx-background-color: #a29191");
 
+        /**
+         * Event on decimal field handled, catches exception and convert to Roman
+         */
         TFInteger.setOnKeyTyped(event -> {
             if(!TFInteger.getText().equals("")) {
                 btnValidity.setText("Content Validity : No error detected.");
@@ -50,6 +53,9 @@ public class DecRomController implements Initializable {
             }
         });
 
+        /**
+         * Event on Roman field handled, catches exception and convert to decimal
+         */
         TFRoman.setOnKeyTyped(event -> {
             if(!TFRoman.getText().equals("")) {
                 btnValidity.setText("Content Validity : No error detected.");
