@@ -7,7 +7,16 @@ import java.util.List;
 public class Converter {
 
     public String DecToBin(String strNumber) {
-        int number = Integer.parseInt(strNumber);
+        if(!strNumber.matches(".*[0-9]*")) return "InvalidCharacter";
+
+        int number;
+        try {
+            number = Integer.parseInt(strNumber);
+        }catch (NumberFormatException ignore) {
+            if(!strNumber.matches("\s\s+")) return "InvalidCharacter";
+            else return "InvalidNumber";
+        }
+
         StringBuilder converted = new StringBuilder();
 
         List<Integer> binBaseAll = new ArrayList<>() {{
@@ -17,10 +26,11 @@ public class Converter {
                 baseNum = baseNum * 2;
                 add(baseNum);
             }
+            add(0);
         }};
         List<Integer> binBase = new ArrayList<>(binBaseAll);
 
-        for(int index = binBase.size() - 1; index >= 0; index--) {
+        for(int index = binBase.size() - 2; index >= 0; index--) {
             if(number >= binBase.get(index) && number > 1) {
                 binBase.subList(binBase.indexOf(binBase.get(index + 1)), binBase.indexOf(binBase.get(binBase.size() - 1))).clear();
                 binBase.remove(binBase.size() - 1);
@@ -45,7 +55,11 @@ public class Converter {
         return converted.toString();
     }
 
-    public int BinToDec(String strBinary) {
+    public String BinToDec(String strBinary) {
+        if(!strBinary.matches("[0-9]*")) return "InvalidCharacter";
+        if(!strBinary.matches("[01]*")) return "InvalidBinary";
+        if(strBinary.length() > 31) return "InvalidNumber";
+
         int len = strBinary.length() - 1;
         int converted = 0;
         List<Integer> binBaseAll = new ArrayList<>() {{
@@ -62,9 +76,8 @@ public class Converter {
                 converted += Math.pow(2,binBaseAll.size() - 1);
             }
             binBaseAll.remove(binBaseAll.size() - 1);
-            System.out.println(converted);
         }
-        return converted;
+        return String.valueOf(converted);
     }
 
     public void DecToHex() {
@@ -125,3 +138,4 @@ public class Converter {
     public void ImcResult() {
     }
 }
+
