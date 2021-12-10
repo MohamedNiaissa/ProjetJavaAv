@@ -6,18 +6,18 @@ import app.model.Soldat;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.ResourceBundle;
+import java.util.*;
 
 public class ArmyController implements Initializable {
     private final List<String> treeViewSkinGenIndex = new ArrayList<>();
     private final List<String> treeViewSkinSolIndex = new ArrayList<>();
+    private final boolean[] validator = {true, true, true};
     private final ContextMenu menu = new ContextMenu();
     private final MenuItem add = new MenuItem();
     private final MenuItem edit = new MenuItem();
@@ -35,6 +35,7 @@ public class ArmyController implements Initializable {
     @FXML private TextField formHP;
 
     @FXML private Button btnAddEdit;
+    @FXML private Button btnValidity;
 
     private void createMenu(ContextMenu menu, MenuItem add, MenuItem edit) {
         add.setVisible(false);
@@ -60,6 +61,98 @@ public class ArmyController implements Initializable {
         army.setTreeRoot(TVArmy);
         army.setRootButton(TVArmy);
         TVArmy.setOnMouseClicked(this::mouseClicked);
+        TVStats.setOnKeyTyped(this::keyTyped);
+
+        formName.setOnKeyTyped(keyTyped -> {
+            if(!Objects.equals(formName.getText(), "")) {
+                validator[0] = true;
+
+                if(formName.getText().length() > 21) {
+                    btnValidity.setText("Content Validity : Name Error -> Too many characters for the name, max characters is 20.");
+                    formName.deletePreviousChar();
+                    btnAddEdit.setDisable(true);
+                    validator[0] = false;
+
+                } else if(!formName.getText().matches("[a-zA-Z0-9]*")) {
+                    btnValidity.setText("Content Validity : Name Error -> The name field only support alphabetical and number characters.");
+                    btnAddEdit.setDisable(true);
+                    validator[0] = false;
+                }
+
+                if(validator[0] && validator[1] && validator[2]) {
+                    btnValidity.setText("Content Validity : No error detected.");
+                    btnAddEdit.setDisable(false);
+                }
+                System.out.println(Arrays.toString(validator));
+
+            } else {
+                btnValidity.setText("Content Validity : No error detected.");
+                btnAddEdit.setDisable(false);
+                validator[0] = true;
+            }
+        });
+
+        formAtt.setOnKeyTyped(keyTyped -> {
+            if(!Objects.equals(formAtt.getText(), "")) {
+                validator[1] = true;
+
+                if(formAtt.getText().length() > 16) {
+                    btnValidity.setText("Content Validity : Attribute Error -> Too many characters for the attribute, max characters is 15.");
+                    formAtt.deletePreviousChar();
+                    btnAddEdit.setDisable(true);
+                    validator[1] = false;
+
+                } else if(!formAtt.getText().matches("[a-zA-Z]*")) {
+                    btnValidity.setText("Content Validity : Attribute Error -> The attribute field only support alphabetical characters.");
+                    btnAddEdit.setDisable(true);
+                    validator[1] = false;
+                }
+
+                if(validator[0] && validator[1] && validator[2]) {
+                    btnValidity.setText("Content Validity : No error detected.");
+                    btnAddEdit.setDisable(false);
+                }
+
+                System.out.println(Arrays.toString(validator));
+            } else {
+                btnValidity.setText("Content Validity : No error detected.");
+                btnAddEdit.setDisable(false);
+                validator[1] = true;
+            }
+        });
+
+        formHP.setOnKeyTyped(keyTyped -> {
+            if(!Objects.equals(formHP.getText(), "")) {
+                validator[2] = true;
+
+                if(formHP.getText().length() > 11) {
+                    btnValidity.setText("Content Validity : HP Error -> Too many numbers attributed to the hp, max characters is 10.");
+                    formName.deletePreviousChar();
+                    btnAddEdit.setDisable(true);
+                    validator[2] = false;
+
+                } else if(!formHP.getText().matches("[0-9]*")) {
+                    btnValidity.setText("Content Validity : HP Error -> The HP field only support numbers characters.");
+                    btnAddEdit.setDisable(true);
+                    validator[2] = false;
+                }
+
+                if(validator[0] && validator[1] && validator[2]) {
+                    btnValidity.setText("Content Validity : No error detected.");
+                    btnAddEdit.setDisable(false);
+                }
+
+                System.out.println(Arrays.toString(validator));
+
+            } else {
+                btnValidity.setText("Content Validity : No error detected.");
+                btnAddEdit.setDisable(false);
+                validator[2] = true;
+            }
+        });
+    }
+
+    private void keyTyped(KeyEvent keyEvent) {
     }
 
     private void hideAndResetStats(boolean setVisible, boolean setVisibleSP, String attStr, String btnStr) {
@@ -78,6 +171,8 @@ public class ArmyController implements Initializable {
         formHP.clear();
         btnAddEdit.setVisible(setVisible);
         btnAddEdit.setText(btnStr);
+        btnValidity.setVisible(true);
+        btnValidity.setText("Content Validity :");
     }
 
     private void hideAndResetStats(boolean setVisibleSP, String nameStr, String attStr, int hpStr) {
