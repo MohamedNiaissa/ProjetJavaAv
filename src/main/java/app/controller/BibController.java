@@ -294,7 +294,10 @@ public class BibController implements Initializable {
 
     /* Effacement des champs après validation*/
 
-        private void Clear(){
+    /**
+     * Erases textField after validation
+     */
+    private void Clear(){
             champColonne.clear();
             champAuteur.clear();
             champParution.clear();

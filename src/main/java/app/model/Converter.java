@@ -8,6 +8,11 @@ public class Converter {
     public void BinToDec() {
     }
 
+    /**
+     * Translate a decimal number (txt) into an Hexadecimal number
+     * @param dec String from txtfield sent
+     * @return Hexadecimal number in a String to be displayed inside the textField
+     */
     public static String decToHex(String dec){
         char[] seize = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         String hexa = "";
@@ -22,6 +27,11 @@ public class Converter {
         return hexa;
     }
 
+    /**
+     * * Translate aN Hexadecimal number (txt) into an Decimal number
+     * @param hex String from textFiled sent
+     * @return a String to be displayed inside the txtField as a result
+     */
     public static String hexToDec(String hex){
         char[] seize = new char[]{'0', '1', '2', '3', '4', '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
         int dec = 0;
