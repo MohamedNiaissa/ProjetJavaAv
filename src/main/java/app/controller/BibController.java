@@ -144,9 +144,24 @@ public class BibController implements Initializable {
                         && !champParution.getText().equals("")
                         && !champRangee.getText().equals("") ) {
 
-                    repColonne = Integer.parseInt(champColonne.getText());
-                    repRangee = Integer.parseInt(champRangee.getText());
-                    repParution = Integer.parseInt(champParution.getText());
+
+                    if(champColonne.getText().length() > 1) {
+                        txtError.setText("Valeur de la colonne trop grande");
+                    }else {
+                        repColonne = Integer.parseInt(champColonne.getText());
+                    }
+
+                    if(champRangee.getText().length() > 1) {
+                        txtError.setText("Valeur de la rangée trop grande");
+                    }else {
+                        repRangee = Integer.parseInt(champRangee.getText());
+                    }
+
+                    if(champParution.getText().length() > 4) {
+                        txtError.setText("Valeur de la parution trop grande");
+                    }else {
+                        repParution = Integer.parseInt(champParution.getText());
+                    }
                 } else {
                     if (champColonne.getText().equals("") || champParution.getText().equals("") || champRangee.getText().equals("")){
                         txtError.setText("Veuillez renseignez les \nchamps manquants");
@@ -274,9 +289,24 @@ public class BibController implements Initializable {
                             && !champParution.getText().equals("")
                             && !champRangee.getText().equals("") ) {
 
-                        repColonne = Integer.parseInt(champColonne.getText());
-                        repRangee = Integer.parseInt(champRangee.getText());
-                        repParution = Integer.parseInt(champParution.getText());
+
+                        if(champColonne.getText().length() > 1) {
+                            txtError.setText("Valeur de la colonne trop grande");
+                        }else {
+                            repColonne = Integer.parseInt(champColonne.getText());
+                        }
+
+                        if(champRangee.getText().length() > 1) {
+                            txtError.setText("Valeur de la rangée trop grande");
+                        }else {
+                            repRangee = Integer.parseInt(champRangee.getText());
+                        }
+
+                        if(champParution.getText().length() > 4) {
+                            txtError.setText("Valeur de la parution trop grande");
+                        }else {
+                            repParution = Integer.parseInt(champParution.getText());
+                        }
                     } else {
                         if (champColonne.getText().equals("") || champParution.getText().equals("") || champRangee.getText().equals("")){
                             txtError.setText("Veuillez renseignez les \nchamps manquants");
@@ -399,7 +429,6 @@ public class BibController implements Initializable {
             champName.clear();
             champResume.clear();
             urlImage.clear();
-
         }
 
 
