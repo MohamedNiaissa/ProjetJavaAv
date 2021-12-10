@@ -32,7 +32,6 @@
   OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
-<?import java.net.URL?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Menu?>
@@ -143,8 +142,4 @@
             </padding>
         </HBox>
     </children>
-   <stylesheets>
-      <URL value="@styleDark.css" />
-      <URL value="@styleLight.css" />
-   </stylesheets>
 </VBox>
