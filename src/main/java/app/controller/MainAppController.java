@@ -35,10 +35,6 @@ public class MainAppController implements Initializable {
         AtomicInteger currentStory = new AtomicInteger();
         asideBib.getChildren().removeAll(pageBib, DecHexform, pageDecBin, pageImc, pageArmy, pageDecRom);
 
-        menuClose.setOnAction(action -> {
-            System.exit(0);
-        });
-
         menuQuit.setOnAction(action -> {
             clearScenes(currentStory.get());
             System.exit(0);
@@ -101,7 +97,7 @@ public class MainAppController implements Initializable {
 
     /**
      * Remove the previous scene that was present before a menu choice
-     * @param aScene
+     * @param aScene current scene to be removed
      */
     public void clearScenes(int aScene){
         switch (aScene){
