@@ -210,6 +210,12 @@ public class Converter {
         return String.valueOf(converted);
     }
 
+    /**
+     * Calcul de l'IMC en fonction du format chiffre entré (xxx ou x.xx)
+      * @param poids - obtenu sur le textfiel poids (String)
+     * @param taille - obtenu sur le textfiel taille (String)
+     * @return l'IMC (float)
+     */
     public Float ImcResult(String poids, String taille) {
 
         String t = taille;
@@ -224,9 +230,11 @@ public class Converter {
             return imcF;
         } else
         {
+            /* x10000 permet la conversion*/
             float imcF = (p / (ta * ta)) * 10000;
 
             return imcF;
         }
     }
 }
+
