@@ -12,14 +12,18 @@ import java.util.ResourceBundle;
 import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainAppController implements Initializable {
-    @FXML
-    private Button btnBib;
 
-    @FXML
-    private Button btnDecHex;
+//    @FXML
+//    private Button btnBib;
+//
+//    @FXML
+//    private Button btnDecHex;
 
     @FXML
     private VBox asideBib;
+
+//    @FXML
+//    private VBox pageTitle;
 
     @FXML
     private VBox pageBib;
@@ -61,12 +65,15 @@ public class MainAppController implements Initializable {
  *                 asideBib.getChildren().add(pageBib);
  *             });
  */
+//        asideBib.getChildren().add(pageTitle);
 
         menuClose.setOnAction(action -> {
             System.exit(0);
         });
 
         menuQuit.setOnAction(action -> {
+            clearScenes(currentStory.get());
+//            asideBib.getChildren().add(pageTitle);
             System.exit(0);
         });
 
@@ -129,6 +136,7 @@ public class MainAppController implements Initializable {
      * @param aScene
      */
     public void clearScenes(int aScene){
+//        if(asideBib.getChildren().contains(pageTitle)) asideBib.getChildren().remove(pageTitle);
         switch (aScene){
             case 1:asideBib.getChildren().remove(pageBib);
 //            case 2:asideBib.getChildren().remove(); // add the related FXML
