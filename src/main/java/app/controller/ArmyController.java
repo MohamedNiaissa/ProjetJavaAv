@@ -6,7 +6,6 @@ import app.model.Soldat;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.*;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -15,8 +14,6 @@ import java.net.URL;
 import java.util.*;
 
 public class ArmyController implements Initializable {
-    private final List<String> treeViewSkinGenIndex = new ArrayList<>();
-    private final List<String> treeViewSkinSolIndex = new ArrayList<>();
     private final boolean[] validator = {true, true, true};
     private final ContextMenu menu = new ContextMenu();
     private final MenuItem add = new MenuItem();
@@ -36,6 +33,8 @@ public class ArmyController implements Initializable {
 
     @FXML private Button btnAddEdit;
     @FXML private Button btnValidity;
+
+    MultipleSelectionModel test;
 
     private void createMenu(ContextMenu menu, MenuItem add, MenuItem edit) {
         add.setVisible(false);
@@ -60,8 +59,8 @@ public class ArmyController implements Initializable {
 
         army.setTreeRoot(TVArmy);
         army.setRootButton(TVArmy);
+        test = TVArmy.getSelectionModel();
         TVArmy.setOnMouseClicked(this::mouseClicked);
-        TVStats.setOnKeyTyped(this::keyTyped);
 
         formName.setOnKeyTyped(keyTyped -> {
             if(!Objects.equals(formName.getText(), "")) {
@@ -83,7 +82,6 @@ public class ArmyController implements Initializable {
                     btnValidity.setText("Content Validity : No error detected.");
                     btnAddEdit.setDisable(false);
                 }
-                System.out.println(Arrays.toString(validator));
 
             } else {
                 btnValidity.setText("Content Validity : No error detected.");
@@ -113,7 +111,6 @@ public class ArmyController implements Initializable {
                     btnAddEdit.setDisable(false);
                 }
 
-                System.out.println(Arrays.toString(validator));
             } else {
                 btnValidity.setText("Content Validity : No error detected.");
                 btnAddEdit.setDisable(false);
@@ -142,17 +139,12 @@ public class ArmyController implements Initializable {
                     btnAddEdit.setDisable(false);
                 }
 
-                System.out.println(Arrays.toString(validator));
-
             } else {
                 btnValidity.setText("Content Validity : No error detected.");
                 btnAddEdit.setDisable(false);
                 validator[2] = true;
             }
         });
-    }
-
-    private void keyTyped(KeyEvent keyEvent) {
     }
 
     private void hideAndResetStats(boolean setVisible, boolean setVisibleSP, String attStr, String btnStr) {
@@ -186,50 +178,60 @@ public class ArmyController implements Initializable {
     }
 
     private void managingCreateGeneral() {
-        int GID = army.getArmyList().size();
-        army.addGeneral(new General(army.getArmyList().size()));
-        General general = army.getArmyList().get(GID);
-
         hideAndResetStats(false, false, "", "");
-        hideAndResetStats(true,false,"Troop capacity : " + General.getSList().size(),"Add");
+        hideAndResetStats(true,false,"","Add");
 
         btnAddEdit.setOnMouseClicked(mouseClick -> {
-            general.setGeneralName(formName.getText());
+            int GID = army.getArmyList().size();
+            army.addGeneral(new General(army.getArmyList().size(), formName.getText()));
+            General general = army.getArmyList().get(GID);
+            lblAtt.setText("Troop capacity : " + (general.getSList().size() - 1));
             general.setTreeGeneral(TVArmy.getRoot());
-            general.setGeneralButton(GID);
+            general.setGeneralButton();
 
             hideAndResetStats(false, false, "", "");
             displayMenu(add, false, edit, false);
         });
     }
 
-    private void managingEditGeneral(String TVSGenValue) {
-        int GID = treeViewSkinGenIndex.indexOf(TVSGenValue);
-        General general = army.getArmyList().get(GID);
+    private void managingEditGeneral() {
+        General general = new General();
+        for(General gen : army.getArmyList()) {
+            if(test.getSelectedItems().contains(gen.getGeneral())) {
+                general = gen;
+            }
+        }
 
         hideAndResetStats(false, false, "", "");
-        hideAndResetStats(true,false,"Troop capacity : " + General.getSList().size(),"Edit");
+        hideAndResetStats(true,false,"Troop capacity : " + general.getSList().size(),"Edit");
         formName.setText(general.getGeneralName());
 
+        General finalGeneral = general;
         btnAddEdit.setOnMouseClicked(mouseClick -> {
-            general.setGeneralName(formName.getText());
+            finalGeneral.setGeneralName(formName.getText());
+            finalGeneral.setGeneralText(formName.getText());
 
             hideAndResetStats(false, false, "", "");
             displayMenu(add, false, edit, false);
         });
     }
 
-    private void managingCreateSoldier(String TVSGenValue) {
+    private void managingCreateSoldier() {
         hideAndResetStats(false, false, "", "");
         hideAndResetStats(true, true, "Grade", "Add");
 
         btnAddEdit.setOnMouseClicked(mouseClick -> {
-            int GID = treeViewSkinGenIndex.indexOf(TVSGenValue);
-            General general = army.getArmyList().get(GID);
-            general.addSoldat(new Soldat(General.getSList().size(), formName.getText(), formAtt.getText(),
+            General general = new General();
+            for(General gen : army.getArmyList()) {
+                if(test.getSelectedItems().contains(gen.getGeneral())) {
+                    general = gen;
+                }
+            }
+
+            general.addSoldat(new Soldat(general.getSList().size(), formName.getText(), formAtt.getText(),
                     Integer.parseInt(formHP.getText())));
-            int SID = General.getSList().size() - 1;
-            Soldat soldat = General.getSList().get(SID);
+            int SID = general.getSList().size() - 1;
+            Soldat soldat = general.getSList().get(SID);
             soldat.setTreeSoldat(general.getTIG());
             soldat.setSoldatGraphics(SID);
 
@@ -238,9 +240,15 @@ public class ArmyController implements Initializable {
         });
     }
 
-    private void managingEditSoldier(String TVSSolValue) {
-        int SID = treeViewSkinSolIndex.indexOf(TVSSolValue);
-        Soldat soldat = General.getSList().get(SID);
+    private void managingEditSoldier() {
+        Soldat soldat = new Soldat();
+        for(General gen : army.getArmyList()) {
+            for(Soldat sol : gen.getSList()) {
+                if(test.getSelectedItems().contains(sol.getSoldat())) {
+                    soldat = sol;
+                }
+            }
+        }
 
         hideAndResetStats(false, false, "", "");
         hideAndResetStats(true, true, "Grade", "Edit");
@@ -248,10 +256,12 @@ public class ArmyController implements Initializable {
         formAtt.setText(soldat.getSoldatGrade());
         formHP.setText(String.valueOf(soldat.getSoldatHP()));
 
+        Soldat finalSoldat = soldat;
         btnAddEdit.setOnMouseClicked(mouseClick -> {
-            soldat.setSoldatName(formName.getText());
-            soldat.setSoldatGrade(formAtt.getText());
-            soldat.setSoldatHP(Integer.parseInt(formHP.getText()));
+            finalSoldat.setSoldatName(formName.getText());
+            finalSoldat.setSoldatGrade(formAtt.getText());
+            finalSoldat.setSoldatHP(Integer.parseInt(formHP.getText()));
+            finalSoldat.setSoldatText(formName.getText());
 
             hideAndResetStats(false, false, "", "");
             displayMenu(add, false, edit, false);
@@ -259,12 +269,25 @@ public class ArmyController implements Initializable {
     }
 
     public void mouseClicked(MouseEvent getCell) {
-        String TVS = getCell.getTarget().toString();
-        if(!TVS.startsWith("TreeViewSkin$1") || TVS.contains("null")) return;
-        String TVSGenValue = TVS.substring(TVS.length() - 10, TVS.length() - 1);
-        System.out.println(TVSGenValue);
+        General general = new General();
+        for(General gen : army.getArmyList()) {
+            if(test.getSelectedItems().contains(gen.getGeneral())) {
+                general = gen;
+            }
+        }
+        String word = "";
+        if(test.getSelectedItems().contains(army.getTreeRoot())) word = "Army";
+        for(General gen : army.getArmyList()) {
+            if(test.getSelectedItems().contains(gen.getGeneral())) word = "General";
+        }
 
-        if(TVS.contains("Army")) {
+        for(General gen1 : army.getArmyList()) {
+            for(Soldat sol : gen1.getSList()) {
+                if(test.getSelectedItems().contains(sol.getSoldat())) word = "Soldier";
+            }
+        }
+
+        if(word.contains("Army")) {
             displayMenu(add, true, edit, false);
             editMenu(add, "Add General", edit, "");
 
@@ -273,41 +296,49 @@ public class ArmyController implements Initializable {
             } else add.setOnAction(mouseClick -> managingCreateGeneral());
         }
 
-        if(TVS.contains("General")) {
+        if(word.contains("General")) {
             displayMenu(add, true, edit, true);
             editMenu(add, "Add Soldier", edit, "Edit General");
-            if (!treeViewSkinGenIndex.contains(TVSGenValue)) treeViewSkinGenIndex.add(TVSGenValue);
 
             if(getCell.getButton() == MouseButton.PRIMARY) {
-                displayGenStats(TVSGenValue);
+                displayGenStats();
             } else {
-                add.setOnAction(mouseClick -> managingCreateSoldier(TVSGenValue));
-                edit.setOnAction(mouseClick -> managingEditGeneral(TVSGenValue));
+                add.setOnAction(mouseClick -> managingCreateSoldier());
+                edit.setOnAction(mouseClick -> managingEditGeneral());
             }
         }
 
-        if(TVS.contains("Soldier")) {
+        if(word.contains("Soldier")) {
             displayMenu(add, false, edit, true);
             editMenu(add, "", edit, "Edit Soldier");
-            if (!treeViewSkinSolIndex.contains(TVSGenValue)) treeViewSkinSolIndex.add(TVSGenValue);
 
             if(getCell.getButton() == MouseButton.PRIMARY) {
-                displaySolStats(TVSGenValue);
-            } else edit.setOnAction(mouseClick -> managingEditSoldier(TVSGenValue));
+                displaySolStats();
+            } else edit.setOnAction(mouseClick -> managingEditSoldier());
         }
     }
 
-    private void displayGenStats(String TVSGenValue) {
-        int GID = treeViewSkinGenIndex.indexOf(TVSGenValue);
-        General general = army.getArmyList().get(GID);
+    private void displayGenStats() {
+        General general = new General();
+        for(General gen : army.getArmyList()) {
+            if(test.getSelectedItems().contains(gen.getGeneral())) {
+                general = gen;
+            }
+        }
 
         hideAndResetStats(false, false, "", "");
-        hideAndResetStats(false, general.getGeneralName(), "Troop capacity : " + General.getSList().size(),0);
+        hideAndResetStats(false, general.getGeneralName(), "Troop capacity : " + general.getSList().size(),0);
     }
 
-    private void displaySolStats(String TVSSolValue) {
-        int SID = treeViewSkinSolIndex.indexOf(TVSSolValue);
-        Soldat soldat = General.getSList().get(SID);
+    private void displaySolStats() {
+        Soldat soldat = new Soldat();
+        for(General gen : army.getArmyList()) {
+            for(Soldat sol : gen.getSList()) {
+                if(test.getSelectedItems().contains(sol.getSoldat())) {
+                    soldat = sol;
+                }
+            }
+        }
 
         hideAndResetStats(false, false, "", "");
         hideAndResetStats(true, soldat.getSoldatName(), "Grade : " + soldat.getSoldatGrade(), soldat.getSoldatHP());

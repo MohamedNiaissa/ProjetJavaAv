@@ -4,18 +4,21 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 public class General extends Army {
     private int GeneralID;
     private String GeneralName;
-    private static final List<Soldat> soldatsList = new ArrayList<>();
-    private final TreeItem<String> general = new TreeItem<>("General");
+    private final List<Soldat> soldatsList = new ArrayList<>();
+    private final TreeItem<String> general = new TreeItem<>("");
     private final Label generalText = new Label();
 
     public General() {}
-    public General(int ID) {
+    public General(int ID, String Name) {
         this.GeneralID = ID;
+        this.GeneralName = Name;
+        this.generalText.setText(Name);
     }
 
     public void setGeneralName(String generalName) {
@@ -26,9 +29,8 @@ public class General extends Army {
         root.getChildren().add(general);
     }
 
-    public void setGeneralButton(int index) {
+    public void setGeneralButton() {
         generalText.setText("GENERAL");
-        general.setValue(general.getValue() + " " + index);
         this.general.setGraphic(generalText);
     }
 
@@ -40,8 +42,8 @@ public class General extends Army {
         this.soldatsList.add(soldat);
     }
 
-    public static List<Soldat> getSList() {
-        return soldatsList;
+    public List<Soldat> getSList() {
+        return this.soldatsList;
     }
 
     public int getGIndexID() {
@@ -78,6 +80,10 @@ public class General extends Army {
 
     public Label getGeneralText() {
         return this.generalText;
+    }
+
+    public void setGeneralText(String Name) {
+        this.generalText.setText(Name);
     }
 
     public String getGeneralName() {

@@ -4,18 +4,23 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 
 public class Soldat extends General {
-    private final int indexID;
+    private int indexID;
     private int soldatHP;
     private String soldatName, soldatGrade;
-    private final TreeItem<String> soldat = new TreeItem<>("Soldier");
+    private final TreeItem<String> soldat = new TreeItem<>("");
     private final Label soldatText = new Label();
 
     public Soldat(int ID, String Name, String Grade, int HP) {
         super();
         this.indexID = ID;
         this.soldatName = Name;
+        this.soldatText.setText(Name);
         this.soldatGrade = Grade;
         this.soldatHP = HP;
+    }
+
+    public Soldat() {
+
     }
 
     public void setTreeSoldat(TreeItem<String> parent) {
@@ -24,8 +29,11 @@ public class Soldat extends General {
 
     public void setSoldatGraphics(int index) {
         soldatText.setText("SOLDAT");
-        soldat.setValue(soldat.getValue() + " " + index);
         this.soldat.setGraphic(soldatText);
+    }
+
+    public TreeItem<String> getSoldat() {
+        return this.soldat;
     }
 
     public int getIndexID() {
@@ -42,6 +50,10 @@ public class Soldat extends General {
 
     public String getSoldatGrade() {
         return this.soldatGrade;
+    }
+
+    public void setSoldatText(String Name) {
+        this.soldatText.setText(Name);
     }
 
     public void setSoldatName(String newName) {

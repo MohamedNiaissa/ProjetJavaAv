@@ -2,7 +2,6 @@ package app.model;
 
 import javafx.scene.control.*;
 import javafx.scene.control.skin.VirtualContainerBase;
-import javafx.scene.layout.VBox;
 
 import java.lang.reflect.Field;
 import java.util.ArrayList;
@@ -10,7 +9,7 @@ import java.util.List;
 
 public class Army {
     private final List<General> generalsList = new ArrayList<>();
-    private final TreeItem<String> root = new TreeItem<>("Army");
+    private final TreeItem<String> root = new TreeItem<>("");
     private final Label rootName = new Label();
 
     public Army() {}
@@ -20,7 +19,7 @@ public class Army {
     }
 
     public void setRootButton(TreeView<String> treeView) {
-        rootName.setText("ARMY");
+        rootName.setText("Army");
         rootName.setMaxWidth(Double.MAX_VALUE);
         rootName.setStyle("-fx-background-color: red");
         treeView.getRoot().setGraphic(rootName);
@@ -38,18 +37,12 @@ public class Army {
         return rootName;
     }
 
-    public TreeItem<String> getTreeRoot() {
-        return root;
+    public void setRootName(String Name) {
+        this.rootName.setText(Name);
     }
 
-    public void getSkinProperty() {
-        try {
-            Field flowField = VirtualContainerBase.class.getDeclaredField("flow");
-            flowField.setAccessible(true);
-            System.out.println(flowField.getInt(root));
-        } catch (NoSuchFieldException ignored) {} catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
+    public TreeItem<String> getTreeRoot() {
+        return root;
     }
 
     @Override
