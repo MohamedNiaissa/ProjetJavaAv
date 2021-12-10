@@ -29,7 +29,7 @@
   DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
   THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
   (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-  OF THIS SOFTWAREimcF, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
+  OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 -->
 
 <?import javafx.geometry.Insets?>
@@ -48,71 +48,72 @@
 <?import javafx.scene.paint.Color?>
 <?import javafx.scene.text.Font?>
 
-<VBox prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
+<VBox prefHeight="750.0" prefWidth="720.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.MainAppController">
     <children>
         <MenuBar VBox.vgrow="NEVER">
             <menus>
-                <Menu mnemonicParsing="false" text="File">
+                <Menu fx:id="fileMenu" mnemonicParsing="false" text="File">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="New" />
-                        <MenuItem mnemonicParsing="false" text="Open…" />
-                        <Menu mnemonicParsing="false" text="Open Recent" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem fx:id="menuClose" mnemonicParsing="false" text="Close" />
-                        <MenuItem mnemonicParsing="false" text="Save" />
-                        <MenuItem mnemonicParsing="false" text="Save As…" />
-                        <MenuItem mnemonicParsing="false" text="Revert" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Preferences…" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Quit" />
+                        <MenuItem fx:id="newFileMenu" disable="true" mnemonicParsing="false" text="New" />
+                        <MenuItem fx:id="openFileMenuFileMenu" disable="true" mnemonicParsing="false" text="Open…" />
+                        <Menu fx:id="openrecentFileMenu" disable="true" mnemonicParsing="false" text="Open Recent" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem fx:id="menuClose" disable="true" mnemonicParsing="false" text="Close" />
+                        <MenuItem fx:id="menuSave" disable="true" mnemonicParsing="false" text="Save" />
+                        <MenuItem fx:id="menuSaveAs" disable="true" mnemonicParsing="false" text="Save As…" />
+                        <MenuItem fx:id="menuRevert" disable="true" mnemonicParsing="false" text="Revert" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Preferences…" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem fx:id="menuQuit" mnemonicParsing="false" text="Quit" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Edit">
+                <Menu fx:id="editMenu" mnemonicParsing="false" text="Edit">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="Undo" />
-                        <MenuItem mnemonicParsing="false" text="Redo" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Cut" />
-                        <MenuItem mnemonicParsing="false" text="Copy" />
-                        <MenuItem mnemonicParsing="false" text="Paste" />
-                        <MenuItem mnemonicParsing="false" text="Delete" />
-                        <SeparatorMenuItem mnemonicParsing="false" />
-                        <MenuItem mnemonicParsing="false" text="Select All" />
-                        <MenuItem mnemonicParsing="false" text="Unselect All" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Undo" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Redo" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Cut" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Copy" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Paste" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Delete" />
+                        <SeparatorMenuItem disable="true" mnemonicParsing="false" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Select All" />
+                        <MenuItem disable="true" mnemonicParsing="false" text="Unselect All" />
                     </items>
                 </Menu>
-                <Menu mnemonicParsing="false" text="Help">
+                <Menu fx:id="hrlpMenu" mnemonicParsing="false" text="Functions">
                     <items>
-                        <MenuItem mnemonicParsing="false" text="About MyHelloApp" />
+                  <MenuItem fx:id="menuLib" mnemonicParsing="false" text="Library" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuBin" mnemonicParsing="false" text="Binary converter" />
+                  <MenuItem fx:id="menuHexa" mnemonicParsing="false" text="Hexadecimal converter" />
+                  <MenuItem fx:id="menuRoman" mnemonicParsing="false" text="Roman converter" />
+                  <MenuItem fx:id="menuIMC" mnemonicParsing="false" text="IMC Evaluation" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem fx:id="menuArmy" mnemonicParsing="false" text="Army" />
                     </items>
                 </Menu>
+            <Menu fx:id="hrlpMenu1" mnemonicParsing="false" text="Help">
+               <items>
+                  <MenuItem disable="true" mnemonicParsing="false" text="About MyHelloApp" />
+               </items>
+            </Menu>
             </menus>
         </MenuBar>
-        <SplitPane dividerPositions="0.2505567928730512" focusTraversable="true" prefHeight="-1.0" prefWidth="-1.0" VBox.vgrow="ALWAYS">
+        <SplitPane focusTraversable="true" prefHeight="570.0" prefWidth="710.0" VBox.vgrow="ALWAYS">
             <items>
-                <AnchorPane>
-                    <children>
-                        <VBox layoutX="1.0" layoutY="1.0" prefHeight="550.0" prefWidth="226.0">
-                            <children>
-                                <Button fx:id="btnBib" mnemonicParsing="false" prefHeight="46.0" prefWidth="100.0" text="Button" />
-                        <Button fx:id="btnBib2" mnemonicParsing="false" text="DecRom" />
-                        <Button fx:id="btnBib3" mnemonicParsing="false" text="DecBin" />
-                        <Button fx:id="btnBib4" mnemonicParsing="false" text="Army" />
-                            </children>
-                        </VBox>
-                    </children>
-                </AnchorPane>
-                <ScrollPane>
+                <ScrollPane prefHeight="551.0" prefWidth="723.0">
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                             <children>
-                                <VBox fx:id="asideBib" prefHeight="553.0" prefWidth="659.0">
+                                <VBox fx:id="asideBib" prefHeight="610.0" prefWidth="700.0">
                                     <children>
+                                        <fx:include fx:id="DecHexform" source="DecHexScene.fxml" />
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
-                              <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
-                              <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
-                              <fx:include fx:id="pageArmy" source="army.fxml" />
+                                      <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
+                                      <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
+                                      <fx:include fx:id="pageArmy" source="army.fxml" />
                                     </children></VBox>
                             </children>
                         </AnchorPane>

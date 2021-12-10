@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="125.0" prefWidth="245.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DecHexController">
+   <children>
+      <HBox prefHeight="51.0" prefWidth="600.0">
+         <children>
+            <TextField alignment="CENTER" editable="false" prefHeight="54.0" prefWidth="246.0" style="-fx-background-color: #BBBBBB;" text="Conversion Deci/Hexa-decimal">
+               <font>
+                  <Font size="16.0" />
+               </font>
+            </TextField>
+         </children>
+      </HBox>
+      <HBox prefHeight="109.0" prefWidth="429.0">
+         <children>
+            <VBox prefHeight="81.0" prefWidth="157.0">
+               <children>
+                  <Label text="Decimal">
+                     <VBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </VBox.margin>
+                  </Label>
+                  <Label prefHeight="17.0" prefWidth="107.0" text="Hexadecimal         #">
+                     <VBox.margin>
+                        <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
+                     </VBox.margin>
+                  </Label>
+               </children>
+            </VBox>
+            <VBox prefHeight="81.0" prefWidth="158.0">
+               <children>
+                  <TextField fx:id="txtDecimal" alignment="CENTER_RIGHT" text="" />
+                  <TextField fx:id="txtHexadecimal" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="85.0" text="" />
+               </children>
+            </VBox>
+         </children>
+         <VBox.margin>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </VBox.margin>
+      </HBox>
+      <HBox prefHeight="100.0" prefWidth="200.0">
+         <children>
+            <TextField fx:id="txtMessage" disable="true" editable="false" prefHeight="26.0" prefWidth="253.0">
+               <padding>
+                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+               </padding>
+            </TextField>
+         </children>
+      </HBox>
+   </children>
+</VBox>
