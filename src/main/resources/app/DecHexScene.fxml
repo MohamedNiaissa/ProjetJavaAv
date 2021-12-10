@@ -27,7 +27,7 @@
                         <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                      </VBox.margin>
                   </Label>
-                  <Label text="Hexadecimal">
+                  <Label prefHeight="17.0" prefWidth="107.0" text="Hexadecimal         #">
                      <VBox.margin>
                         <Insets bottom="6.0" left="6.0" right="6.0" top="6.0" />
                      </VBox.margin>
@@ -36,8 +36,8 @@
             </VBox>
             <VBox prefHeight="81.0" prefWidth="158.0">
                <children>
-                  <TextField fx:id="txtDecimal" alignment="CENTER_RIGHT" />
-                  <TextField fx:id="txtHexadecimal" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="85.0" />
+                  <TextField fx:id="txtDecimal" alignment="CENTER_RIGHT" text="" />
+                  <TextField fx:id="txtHexadecimal" alignment="CENTER_RIGHT" prefHeight="26.0" prefWidth="85.0" text="" />
                </children>
             </VBox>
          </children>
