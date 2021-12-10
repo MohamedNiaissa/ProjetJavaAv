@@ -25,19 +25,19 @@ public class Converter {
 
     public Float ImcResult(String poids, String taille) {
 
-        String t= taille;
+        String t = taille;
         float p = Float.parseFloat(poids);
         float ta = Float.parseFloat(taille);
 
         /* definir si la taille est de type xxx ou x.xx */
-        if (taille.contains(".")){
+        if ((taille.contains("."))|| taille.length() == 1) {
 
-            float imcF = p/(ta*ta);
+            float imcF = p / (ta * ta);
 
             return imcF;
-        }
-        else {
-            float imcF = (p/(ta*ta))*10000;
+        } else
+        {
+            float imcF = (p / (ta * ta)) * 10000;
 
             return imcF;
         }
