@@ -20,8 +20,7 @@ public class MainAppController implements Initializable {
     @FXML private AnchorPane pageDecBin;
     @FXML private AnchorPane pageDecRom;
     @FXML private AnchorPane pageArmy;
-
-    @FXML private MenuItem menuClose;
+    
     @FXML private MenuItem menuQuit;
     @FXML private MenuItem menuLib;
     @FXML private MenuItem menuBin;
