@@ -12,15 +12,14 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainAppController implements Initializable {
 
-
     @FXML private VBox asideBib;
     @FXML private VBox pageBib;
     @FXML private VBox DecHexform;
     @FXML private VBox pageImc;
-    @FXML private AnchorPane pageDecBin;
-    @FXML private AnchorPane pageDecRom;
-    @FXML private AnchorPane pageArmy;
-    
+    @FXML private VBox pageDecBin;
+    @FXML private VBox pageDecRom;
+    @FXML private VBox pageArmy;
+
     @FXML private MenuItem menuQuit;
     @FXML private MenuItem menuLib;
     @FXML private MenuItem menuBin;
@@ -101,11 +100,11 @@ public class MainAppController implements Initializable {
     public void clearScenes(int aScene){
         switch (aScene){
             case 1:asideBib.getChildren().remove(pageBib);
-            case 2:asideBib.getChildren().remove(pageDecBin); // add the related FXML
+            case 2:asideBib.getChildren().remove(pageDecBin);
             case 3:asideBib.getChildren().remove(DecHexform);
-            case 4:asideBib.getChildren().remove(pageDecRom); // add the related FXML
-            case 5:asideBib.getChildren().remove(pageImc); // add the related FXML
-            case 6:asideBib.getChildren().remove(pageArmy); // add the related FXML
+            case 4:asideBib.getChildren().remove(pageDecRom);
+            case 5:asideBib.getChildren().remove(pageImc);
+            case 6:asideBib.getChildren().remove(pageArmy);
         }
     }
 }

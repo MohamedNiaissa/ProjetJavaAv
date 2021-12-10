@@ -106,9 +106,9 @@
                     <content>
                         <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
                             <children>
-                                <VBox fx:id="asideBib" prefHeight="610.0" prefWidth="700.0">
+                                <VBox fx:id="asideBib" alignment="CENTER" prefHeight="610.0" prefWidth="700.0">
                                     <children>
-                                        <fx:include fx:id="DecHexform" source="DecHexScene.fxml" />
+                                        <fx:include fx:id="DecHexform" source="DecHexScene.fxml" VBox.vgrow="ALWAYS" />
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
                                         <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
                                         <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
@@ -120,6 +120,9 @@
                     </content>
                 </ScrollPane>
             </items>
+         <VBox.margin>
+            <Insets left="15.0" right="15.0" />
+         </VBox.margin>
         </SplitPane>
         <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
             <children>
