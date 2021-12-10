@@ -4,6 +4,10 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 
 public class Soldat extends General {
+    /** This class is the last of its Tree, it doesn't store anything beside Variables used to
+     *  edit a specific Soldier.
+     */
+
     private int indexID;
     private int soldatHP;
     private String soldatName, soldatGrade;
@@ -19,25 +23,19 @@ public class Soldat extends General {
         this.soldatHP = HP;
     }
 
-    public Soldat() {
-
-    }
+    public Soldat() { }
 
     public void setTreeSoldat(TreeItem<String> parent) {
         parent.getChildren().add(soldat);
     }
 
-    public void setSoldatGraphics(int index) {
+    public void setSoldatGraphics() {
         soldatText.setText("SOLDAT");
         this.soldat.setGraphic(soldatText);
     }
 
     public TreeItem<String> getSoldat() {
         return this.soldat;
-    }
-
-    public int getIndexID() {
-        return this.indexID;
     }
 
     public int getSoldatHP() {

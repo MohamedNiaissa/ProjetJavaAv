@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.*;
 
 public class ArmyController implements Initializable {
+    // Validator is used for the textField content validation.
     private final boolean[] validator = {true, true, true};
     private final ContextMenu menu = new ContextMenu();
     private final MenuItem add = new MenuItem();
@@ -34,9 +35,13 @@ public class ArmyController implements Initializable {
     @FXML private Button btnAddEdit;
     @FXML private Button btnValidity;
 
-    MultipleSelectionModel test;
+    // This class will be used as a cell selector.
+    MultipleSelectionModel selected;
 
     private void createMenu(ContextMenu menu, MenuItem add, MenuItem edit) {
+        /* We create a simple menu when using the right click, we set the menuItem visibility to false
+         *  until a special event trigger it back to visible.
+         */
         add.setVisible(false);
         edit.setVisible(false);
         menu.getItems().addAll(add, edit);
@@ -55,11 +60,17 @@ public class ArmyController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        createMenu(menu, add, edit);
+        /* We initialize the TreeRoot of the TreeView and its attribute.
+         *  We set an event on the whole TreeView rather than a single cell.
+         *  This method will also set a series of verification when entering an input in x TextField.
+         *  To do so we will use boolean validator declared before.
+         *  If there is a single false in the array, the button to send the information will stay disabled.
+         */
 
+        createMenu(menu, add, edit);
         army.setTreeRoot(TVArmy);
-        army.setRootButton(TVArmy);
-        test = TVArmy.getSelectionModel();
+        army.setRootAttribute(TVArmy);
+        selected = TVArmy.getSelectionModel();
         TVArmy.setOnMouseClicked(this::mouseClicked);
 
         formName.setOnKeyTyped(keyTyped -> {
@@ -148,6 +159,8 @@ public class ArmyController implements Initializable {
     }
 
     private void hideAndResetStats(boolean setVisible, boolean setVisibleSP, String attStr, String btnStr) {
+        /* This function will simply reset the elements needed each time the form is called.
+         */
         TVStats.setVisible(setVisible);
         lblName.setVisible(setVisible);
         lblName.setText("Name");
@@ -168,6 +181,9 @@ public class ArmyController implements Initializable {
     }
 
     private void hideAndResetStats(boolean setVisibleSP, String nameStr, String attStr, int hpStr) {
+        /* This function does the same thing as the one above, but the only difference is that
+         *  this one is used for the edit option.
+         */
         TVStats.setVisible(true);
         lblName.setVisible(true);
         lblName.setText(lblName.getText() + " : " + nameStr);
@@ -182,6 +198,9 @@ public class ArmyController implements Initializable {
         hideAndResetStats(true,false,"","Add");
 
         btnAddEdit.setOnMouseClicked(mouseClick -> {
+            /* The GID is the General ID.
+             *  We then proceed to create an Object General and store it in the class Army Array.
+             */
             int GID = army.getArmyList().size();
             army.addGeneral(new General(army.getArmyList().size(), formName.getText()));
             General general = army.getArmyList().get(GID);
@@ -195,9 +214,13 @@ public class ArmyController implements Initializable {
     }
 
     private void managingEditGeneral() {
+        /* First, we start by getting the General from the selected cell.
+         *  Then we edit this Object with some setters.
+         */
+
         General general = new General();
         for(General gen : army.getArmyList()) {
-            if(test.getSelectedItems().contains(gen.getGeneral())) {
+            if(selected.getSelectedItems().contains(gen.getGeneral())) {
                 general = gen;
             }
         }
@@ -223,7 +246,7 @@ public class ArmyController implements Initializable {
         btnAddEdit.setOnMouseClicked(mouseClick -> {
             General general = new General();
             for(General gen : army.getArmyList()) {
-                if(test.getSelectedItems().contains(gen.getGeneral())) {
+                if(selected.getSelectedItems().contains(gen.getGeneral())) {
                     general = gen;
                 }
             }
@@ -242,7 +265,7 @@ public class ArmyController implements Initializable {
             int SID = general.getSList().size() - 1;
             Soldat soldat = general.getSList().get(SID);
             soldat.setTreeSoldat(general.getTIG());
-            soldat.setSoldatGraphics(SID);
+            soldat.setSoldatGraphics();
 
             hideAndResetStats(false, false, "", "");
             displayMenu(add, false, edit, false);
@@ -250,10 +273,14 @@ public class ArmyController implements Initializable {
     }
 
     private void managingEditSoldier() {
+        /* First, we start by going through every general, and for each we search the selected
+         *  Solider. Then we edit this Object with some setters.
+         */
+
         Soldat soldat = new Soldat();
         for(General gen : army.getArmyList()) {
             for(Soldat sol : gen.getSList()) {
-                if(test.getSelectedItems().contains(sol.getSoldat())) {
+                if(selected.getSelectedItems().contains(sol.getSoldat())) {
                     soldat = sol;
                 }
             }
@@ -287,24 +314,26 @@ public class ArmyController implements Initializable {
     }
 
     public void mouseClicked(MouseEvent getCell) {
-        General general = new General();
-        for(General gen : army.getArmyList()) {
-            if(test.getSelectedItems().contains(gen.getGeneral())) {
-                general = gen;
-            }
-        }
+        /* The main event listener, this function will determine which cell it is without the help
+         *  from naming a TreeItem. It check if the selected element exist, then define
+         *  the string with a specific name.
+         *  We cannot use the getCell event to fetch the cell as it send back a TreeViewSkin since
+         *  we can't add an event listener or point the Object index as it change every so often.
+         */
+
         String word = "";
-        if(test.getSelectedItems().contains(army.getTreeRoot())) word = "Army";
+        if(selected.getSelectedItems().contains(army.getTreeRoot())) word = "Army";
         for(General gen : army.getArmyList()) {
-            if(test.getSelectedItems().contains(gen.getGeneral())) word = "General";
+            if(selected.getSelectedItems().contains(gen.getGeneral())) word = "General";
         }
 
         for(General gen1 : army.getArmyList()) {
             for(Soldat sol : gen1.getSList()) {
-                if(test.getSelectedItems().contains(sol.getSoldat())) word = "Soldier";
+                if(selected.getSelectedItems().contains(sol.getSoldat())) word = "Soldier";
             }
         }
 
+        // If the cell is Army, then do the Army related option.
         if(word.contains("Army")) {
             displayMenu(add, true, edit, false);
             editMenu(add, "Add General", edit, "");
@@ -314,6 +343,7 @@ public class ArmyController implements Initializable {
             } else add.setOnAction(mouseClick -> managingCreateGeneral());
         }
 
+        // If the cell is General, then do the General related option.
         if(word.contains("General")) {
             displayMenu(add, true, edit, true);
             editMenu(add, "Add Soldier", edit, "Edit General");
@@ -326,6 +356,7 @@ public class ArmyController implements Initializable {
             }
         }
 
+        // If the cell is Solider, then do the Soldier related option
         if(word.contains("Soldier")) {
             displayMenu(add, false, edit, true);
             editMenu(add, "", edit, "Edit Soldier");
@@ -337,9 +368,12 @@ public class ArmyController implements Initializable {
     }
 
     private void displayGenStats() {
+        /* This function display the General stats when selecting the cell, but it's on ReadOnly.
+         */
+
         General general = new General();
         for(General gen : army.getArmyList()) {
-            if(test.getSelectedItems().contains(gen.getGeneral())) {
+            if(selected.getSelectedItems().contains(gen.getGeneral())) {
                 general = gen;
             }
         }
@@ -349,10 +383,13 @@ public class ArmyController implements Initializable {
     }
 
     private void displaySolStats() {
+        /* This function display the Soldier stats when selecting the cell, but it's on ReadOnly.
+         */
+
         Soldat soldat = new Soldat();
         for(General gen : army.getArmyList()) {
             for(Soldat sol : gen.getSList()) {
-                if(test.getSelectedItems().contains(sol.getSoldat())) {
+                if(selected.getSelectedItems().contains(sol.getSoldat())) {
                     soldat = sol;
                 }
             }

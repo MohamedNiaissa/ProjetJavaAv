@@ -16,27 +16,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ImcController implements Initializable {
     Converter converter = new Converter();
 
-    @FXML
-    private Slider sliderImc;
-
-    @FXML
-    private Button btnValid;
-
-    @FXML
-    private Label lblCom;
-
-    @FXML
-    private TextField tfImc;
-
-    @FXML
-    private TextField tfPoids;
-
-    @FXML
-    private TextField tfTaille;
-
-    @FXML
-    private Label titleImc;
-
+    @FXML private Slider sliderImc;
+    @FXML private Button btnValid;
+    @FXML private Label lblCom;
+    @FXML private TextField tfImc;
+    @FXML private TextField tfPoids;
+    @FXML private TextField tfTaille;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
@@ -48,12 +33,14 @@ public class ImcController implements Initializable {
         sliderImc.setMax(12);
         sliderImc.setShowTickMarks(true);
 
-        /* Check si conditions remplies pour valider la saisi */
+        /* Check si conditions (digit + nbe caractere + caracteres non pris en charge)
+        remplies lors de la saisie pour valider le poids */
         tfPoids.setOnKeyReleased (eventP -> {
             if (tfPoids.getText().matches("[0-9.]*") && tfPoids.getText().length()<= 3){
                 weightOK.set(true);
                 lblCom.setText("");
             }
+
             else if (tfPoids.getText().length() > 3) {
                 weightOK.set(false);
                 tfPoids.deletePreviousChar();
@@ -65,6 +52,8 @@ public class ImcController implements Initializable {
                 lblCom.setText("Veuillez entrer un poids valide");
             }
         });
+        /* Check si conditions (digit + nbe caractere + caracteres non pris en charge)
+         remplies lors de la saisie pour valider la taille */
         tfTaille.setOnKeyReleased(eventT ->{
             if (tfTaille.getText().matches("[0-9.]*") && tfTaille.getText().length() <=4) {
                 sizeOK.set(true);
@@ -100,8 +89,8 @@ public class ImcController implements Initializable {
 
             }
 
-            /* Si NON Vide */
-//
+            /* Si NON Vide  + affichage avec seulement 2 décimales*/
+
             if(sizeOK.get() && weightOK.get()){
                 float imcF = converter.ImcResult(tfPoids.getText(), tfTaille.getText());
                 DecimalFormat df = new DecimalFormat("#######.##");
@@ -110,6 +99,7 @@ public class ImcController implements Initializable {
 
                 sliderImc.setValue(imcF);
 
+            /* Resultat en fonction du calcul de l'IMC + slider*/
                 if (imcF < 18.4){
                     lblCom.setText("Vous devez manger plus");
                     sliderImc.setValue(1);

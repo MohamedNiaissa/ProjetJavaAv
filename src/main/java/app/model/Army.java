@@ -1,13 +1,16 @@
 package app.model;
 
 import javafx.scene.control.*;
-import javafx.scene.control.skin.VirtualContainerBase;
 
-import java.lang.reflect.Field;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Army {
+    /** The class army is the parent of General and the grand-parent of the Soldier.
+     *  It will store in a List<General> every General Object created from the ArmyController.
+     *  The class mostly contains getter and setter.
+     */
+
     private final List<General> generalsList = new ArrayList<>();
     private final TreeItem<String> root = new TreeItem<>("");
     private final Label rootName = new Label();
@@ -18,10 +21,8 @@ public class Army {
         treeView.setRoot(root);
     }
 
-    public void setRootButton(TreeView<String> treeView) {
+    public void setRootAttribute(TreeView<String> treeView) {
         rootName.setText("Army");
-        rootName.setMaxWidth(Double.MAX_VALUE);
-        rootName.setStyle("-fx-background-color: red");
         treeView.getRoot().setGraphic(rootName);
     }
 
@@ -31,14 +32,6 @@ public class Army {
 
     public List<General> getArmyList() {
         return generalsList;
-    }
-
-    public Label getRootName() {
-        return rootName;
-    }
-
-    public void setRootName(String Name) {
-        this.rootName.setText(Name);
     }
 
     public TreeItem<String> getTreeRoot() {
