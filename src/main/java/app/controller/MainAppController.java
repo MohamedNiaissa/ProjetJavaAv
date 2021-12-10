@@ -46,6 +46,7 @@ public class MainAppController implements Initializable {
 
         menuArmy.setOnAction(action ->{
             if (currentStory.get() !=6) {
+                clearScenes(currentStory.get());
                 asideBib.getChildren().add(pageArmy); // ajouter la scene dédiée
                 System.out.println(currentStory+" Army selected");
                 currentStory.set(6);
