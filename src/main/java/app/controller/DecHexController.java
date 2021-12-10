@@ -1,25 +1,18 @@
 package app.controller;
 
 import app.model.Converter;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.TextField;
-import javafx.scene.input.KeyEvent;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 
 public class DecHexController implements Initializable {
-    @FXML
-    private TextField txtDecimal;
 
-    @FXML
-    private TextField txtHexadecimal;
-
-    @FXML
-    private TextField txtMessage;
+    @FXML private TextField txtDecimal;
+    @FXML private TextField txtHexadecimal;
+    @FXML private TextField txtMessage;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {

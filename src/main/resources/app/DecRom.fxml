@@ -6,58 +6,54 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="223.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DecRomController">
+
+<VBox alignment="CENTER" prefHeight="223.0" prefWidth="670.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.DecRomController">
    <children>
-      <VBox alignment="TOP_CENTER" prefHeight="223.0" prefWidth="670.0">
+      <Label fx:id="lblTitleIR" alignment="CENTER" prefHeight="26.0" prefWidth="756.0" text="Conversion Integer to Roman /  Roman to Integer">
+         <font>
+            <Font size="20.0" />
+         </font>
+         <opaqueInsets>
+            <Insets />
+         </opaqueInsets>
+         <cursor>
+            <Cursor fx:constant="DEFAULT" />
+         </cursor>
+      </Label>
+      <Separator prefHeight="26.0" prefWidth="235.0" />
+      <HBox prefHeight="214.0" prefWidth="600.0">
          <children>
-            <Label fx:id="lblTitleIR" alignment="CENTER" prefHeight="26.0" prefWidth="756.0" text="Conversion Integer to Roman /  Roman to Integer">
-               <font>
-                  <Font size="20.0" />
-               </font>
-               <opaqueInsets>
-                  <Insets />
-               </opaqueInsets>
-               <cursor>
-                  <Cursor fx:constant="DEFAULT" />
-               </cursor>
-            </Label>
-            <Separator prefHeight="26.0" prefWidth="235.0" />
-            <HBox prefHeight="214.0" prefWidth="600.0">
+            <VBox alignment="CENTER" prefHeight="148.0" prefWidth="377.0">
                <children>
-                  <VBox alignment="CENTER" prefHeight="148.0" prefWidth="377.0">
-                     <children>
-                        <Label alignment="CENTER" text="Integer">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="TFInteger" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="270.0" />
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" prefHeight="148.0" prefWidth="2.0" />
-                  <VBox alignment="CENTER" prefHeight="148.0" prefWidth="377.0">
-                     <children>
-                        <Label text="Roman">
-                           <font>
-                              <Font size="25.0" />
-                           </font>
-                        </Label>
-                        <TextField fx:id="TFRoman" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="270.0" />
-                     </children>
-                  </VBox>
+                  <Label alignment="CENTER" text="Integer">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="TFInteger" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="270.0" />
                </children>
-            </HBox>
-            <VBox alignment="CENTER" prefHeight="113.0" prefWidth="600.0">
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="148.0" prefWidth="2.0" />
+            <VBox alignment="CENTER" prefHeight="148.0" prefWidth="377.0">
                <children>
-                  <Button fx:id="btnValidity" disable="true" mnemonicParsing="false" opacity="0.45" prefHeight="28.0" prefWidth="540.0" text="Content Validity : " textFill="#802929" />
+                  <Label text="Roman">
+                     <font>
+                        <Font size="25.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="TFRoman" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minWidth="-Infinity" prefHeight="35.0" prefWidth="270.0" />
                </children>
             </VBox>
          </children>
+      </HBox>
+      <VBox alignment="CENTER" prefHeight="113.0" prefWidth="600.0">
+         <children>
+            <Button fx:id="btnValidity" disable="true" mnemonicParsing="false" opacity="0.45" prefHeight="28.0" prefWidth="540.0" text="Content Validity : " textFill="#802929" />
+         </children>
       </VBox>
    </children>
-</AnchorPane>
+</VBox>

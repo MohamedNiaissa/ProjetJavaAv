@@ -8,6 +8,12 @@ import java.util.Calendar;
 import java.util.List;
 
 public class General extends Army {
+    /** This class is the child of the Army, its role is more important than the two other classes.
+     *  Its goal is to store Soldiers inside a list and be the bridge between Army and Soldier.
+     *  The class mostly contains Setters and Getters.
+     *  Although there is a sort method, it doesn't work.
+     */
+
     private int GeneralID;
     private String GeneralName;
     private final List<Soldat> soldatsList = new ArrayList<>();
@@ -46,10 +52,6 @@ public class General extends Army {
         return this.soldatsList;
     }
 
-    public int getGIndexID() {
-        return this.GeneralID;
-    }
-
     public void sortSoldat() {
         int maxHp;
         int indexSoldat = 0;
@@ -70,16 +72,11 @@ public class General extends Army {
 
         for(Soldat soldat : soldatsList) {
             soldat.setTreeSoldat(getTIG());
-//            soldat.setSoldatGraphics();
         }
     }
 
     public TreeItem<String> getGeneral() {
         return this.general;
-    }
-
-    public Label getGeneralText() {
-        return this.generalText;
     }
 
     public void setGeneralText(String Name) {

@@ -16,27 +16,12 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class ImcController implements Initializable {
     Converter converter = new Converter();
 
-    @FXML
-    private Slider sliderImc;
-
-    @FXML
-    private Button btnValid;
-
-    @FXML
-    private Label lblCom;
-
-    @FXML
-    private TextField tfImc;
-
-    @FXML
-    private TextField tfPoids;
-
-    @FXML
-    private TextField tfTaille;
-
-    @FXML
-    private Label titleImc;
-
+    @FXML private Slider sliderImc;
+    @FXML private Button btnValid;
+    @FXML private Label lblCom;
+    @FXML private TextField tfImc;
+    @FXML private TextField tfPoids;
+    @FXML private TextField tfTaille;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
