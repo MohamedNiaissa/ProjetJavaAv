@@ -87,10 +87,17 @@ public class Converter {
     }
 
     public String DecToRom(String strNumber) {
-        // Find a way to patch the error if the user enter anything else than a number.
-        // Find a better way to patch the lasting II when we clean the TextField.
+        if(!strNumber.matches("[0-9]*")) return "InvalidCharacter";
+        if(strNumber.length() > 4) return "InvalidNumber";
 
-        int number = Integer.parseInt(strNumber);
+        int number;
+        try {
+            number = Integer.parseInt(strNumber);
+        }catch (NumberFormatException ignore) {
+            if(!strNumber.matches("\s\s+")) return "InvalidCharacter";
+            else return "InvalidNumber";
+        }
+
         StringBuilder converted = new StringBuilder();
         String[] chars = {"I", "IV", "V", "IX", "X", "XL", "L", "XC", "C", "CD", "D", "CM", "M"};
         Integer[] values = {1, 4, 5, 9, 10, 40, 50, 90, 100, 400, 500, 900, 1000};
@@ -110,9 +117,10 @@ public class Converter {
         return converted.toString();
     }
 
-    public int RomToDec(String strRomain) {
-        // Find a way to patch the error if the user enter anything else than those letters.
-        // Find a better way to patch the wrong roman value.
+    public String RomToDec(String strRomain) {
+        if(!strRomain.matches("[IVXLCDM]*")) return "InvalidCharacter";
+        if(strRomain.length() > 9) return "InvalidNumber";
+        if(strRomain.matches("[Mm]{4,}")) return "0";
 
         int converted = 0;
         Character[] chars = {'I', 'V', 'X', 'L', 'C', 'D', 'M'};
@@ -132,7 +140,7 @@ public class Converter {
                 else converted += currentValue;
             } else converted += currentValue;
         }
-        return converted;
+        return String.valueOf(converted);
     }
 
     public void ImcResult() {
