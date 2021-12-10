@@ -1,5 +1,8 @@
 package app.model;
 
+import java.text.DecimalFormat;
+import java.text.NumberFormat;
+
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -143,7 +146,23 @@ public class Converter {
         return String.valueOf(converted);
     }
 
-    public void ImcResult() {
+    public Float ImcResult(String poids, String taille) {
+
+        String t = taille;
+        float p = Float.parseFloat(poids);
+        float ta = Float.parseFloat(taille);
+
+        /* definir si la taille est de type xxx ou x.xx */
+        if (taille.contains(".")){
+
+            float imcF = p/(ta*ta);
+
+            return imcF;
+        }
+        else {
+            float imcF = (p/(ta*ta))*10000;
+
+            return imcF;
+        }
     }
 }
-
