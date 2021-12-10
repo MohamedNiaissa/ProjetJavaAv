@@ -110,10 +110,10 @@
                                     <children>
                                         <fx:include fx:id="DecHexform" source="DecHexScene.fxml" />
                                         <fx:include fx:id="pageBib" source="biblio.fxml" />
-                                      <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
-                                      <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
-                                      <fx:include fx:id="pageArmy" source="army.fxml" />
-                              <fx:include source="Imc.fxml" />
+                                        <fx:include fx:id="pageDecRom" source="DecRom.fxml" />
+                                        <fx:include fx:id="pageDecBin" source="DecBin.fxml" />
+                                        <fx:include fx:id="pageImc" source="Imc.fxml" />
+                                        <fx:include fx:id="pageArmy" source="army.fxml" />
                                     </children></VBox>
                             </children>
                         </AnchorPane>

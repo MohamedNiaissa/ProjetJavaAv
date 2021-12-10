@@ -2,10 +2,9 @@ package app.controller;
 
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
 import javafx.scene.control.MenuItem;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-import javafx.stage.Window;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -13,55 +12,28 @@ import java.util.concurrent.atomic.AtomicInteger;
 
 public class MainAppController implements Initializable {
 
-//    @FXML
-//    private Button btnBib;
-//
-//    @FXML
-//    private Button btnDecHex;
 
-    @FXML
-    private VBox asideBib;
+    @FXML private VBox asideBib;
+    @FXML private VBox pageBib;
+    @FXML private VBox DecHexform;
+    @FXML private VBox pageImc;
+    @FXML private AnchorPane pageDecBin;
+    @FXML private AnchorPane pageDecRom;
+    @FXML private AnchorPane pageArmy;
 
-    @FXML
-    private VBox pageBib;
-
-    @FXML
-    private VBox DecHexform;
-
-    @FXML
-    private MenuItem menuClose;
-
-    @FXML
-    private MenuItem menuQuit;
-
-    @FXML
-    private MenuItem menuLib;
-
-    @FXML
-    private MenuItem menuBin;
-
-    @FXML
-    private MenuItem menuHexa;
-
-    @FXML
-    private MenuItem menuRoman;
-
-    @FXML
-    private MenuItem menuArmy;
-
-    @FXML
-    private MenuItem menuIMC;
+    @FXML private MenuItem menuClose;
+    @FXML private MenuItem menuQuit;
+    @FXML private MenuItem menuLib;
+    @FXML private MenuItem menuBin;
+    @FXML private MenuItem menuHexa;
+    @FXML private MenuItem menuRoman;
+    @FXML private MenuItem menuArmy;
+    @FXML private MenuItem menuIMC;
 
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         AtomicInteger currentStory = new AtomicInteger();
-        asideBib.getChildren().removeAll(pageBib, DecHexform); // add all children at the beginning
-
-/**
- *             btnBib.setOnMouseClicked( btnAction -> {
- *                 asideBib.getChildren().add(pageBib);
- *             });
- */
+        asideBib.getChildren().removeAll(pageBib, DecHexform, pageDecBin, pageImc, pageArmy, pageDecRom);
 
         menuClose.setOnAction(action -> {
             System.exit(0);
@@ -74,7 +46,7 @@ public class MainAppController implements Initializable {
 
         menuArmy.setOnAction(action ->{
             if (currentStory.get() !=6) {
-//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                asideBib.getChildren().add(pageArmy); // ajouter la scene dédiée
                 System.out.println(currentStory+" Army selected");
                 currentStory.set(6);
             }
@@ -83,7 +55,7 @@ public class MainAppController implements Initializable {
         menuBin.setOnAction(action ->{
             if (currentStory.get() !=2) {
                 clearScenes(currentStory.get());
-//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                asideBib.getChildren().add(pageDecBin); // ajouter la scene dédiée
                 System.out.println(currentStory+" Binary converter selected");
                 currentStory.set(2);
             }
@@ -101,7 +73,7 @@ public class MainAppController implements Initializable {
         menuRoman.setOnAction(action ->{
             if (currentStory.get() !=4) {
                 clearScenes(currentStory.get());
-//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                asideBib.getChildren().add(pageDecRom); // ajouter la scene dédiée
                 System.out.println(currentStory+" Roman converter selected");
                 currentStory.set(4);
             }
@@ -110,7 +82,7 @@ public class MainAppController implements Initializable {
         menuIMC.setOnAction(action ->{
             if (currentStory.get() !=5) {
                 clearScenes(currentStory.get());
-//                asideBib.getChildren().add(); / ajouter la scene dédiée
+                asideBib.getChildren().add(pageImc); // ajouter la scene dédiée
                 System.out.println(currentStory+" IMC computing selected");
                 currentStory.set(5);
             }
@@ -133,11 +105,11 @@ public class MainAppController implements Initializable {
     public void clearScenes(int aScene){
         switch (aScene){
             case 1:asideBib.getChildren().remove(pageBib);
-//            case 2:asideBib.getChildren().remove(); // add the related FXML
+            case 2:asideBib.getChildren().remove(pageDecBin); // add the related FXML
             case 3:asideBib.getChildren().remove(DecHexform);
-//            case 4:asideBib.getChildren().remove(); // add the related FXML
-//            case 5:asideBib.getChildren().remove(); // add the related FXML
-//            case 6:asideBib.getChildren().remove(); // add the related FXML
+            case 4:asideBib.getChildren().remove(pageDecRom); // add the related FXML
+            case 5:asideBib.getChildren().remove(pageImc); // add the related FXML
+            case 6:asideBib.getChildren().remove(pageArmy); // add the related FXML
         }
     }
 }
