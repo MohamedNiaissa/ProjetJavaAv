@@ -6,49 +6,53 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TreeView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="302.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ArmyController">
+<AnchorPane prefHeight="600.0" prefWidth="602.0" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="app.controller.ArmyController">
    <children>
-      <SplitPane dividerPositions="0.5" prefHeight="302.0" prefWidth="600.0">
+      <SplitPane dividerPositions="0.5710702341137124" orientation="VERTICAL" prefHeight="600.0" prefWidth="602.0">
          <items>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="408.0" prefWidth="600.0">
                <children>
-                  <TreeView fx:id="TVArmy" prefHeight="300.0" prefWidth="395.0" />
+                  <TreeView fx:id="TVArmy" prefHeight="408.0" prefWidth="602.0" />
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="200.0" prefWidth="200.0">
+            <AnchorPane maxHeight="-Infinity" minHeight="0.0" minWidth="0.0" prefHeight="188.0" prefWidth="600.0">
                <children>
-                  <VBox fx:id="TVStats" prefHeight="300.0" prefWidth="196.0">
+                  <VBox fx:id="TVStats">
                      <children>
-                        <VBox alignment="CENTER" prefHeight="312.0" prefWidth="196.0">
+                        <HBox prefHeight="88.0" prefWidth="600.0">
                            <children>
-                              <Label fx:id="lblName" text="Name :" visible="false">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="formName" alignment="CENTER" prefHeight="26.0" prefWidth="76.0" visible="false" />
-                              <Label fx:id="lblAtt">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="formAtt" alignment="CENTER" visible="false" />
-                              <Label fx:id="lblHP">
-                                 <font>
-                                    <Font size="16.0" />
-                                 </font>
-                              </Label>
-                              <TextField fx:id="formHP" alignment="CENTER" visible="false" />
+                              <VBox alignment="CENTER" prefHeight="88.0" prefWidth="201.0">
+                                 <children>
+                                    <Label fx:id="lblName" contentDisplay="CENTER" text="Name :" visible="false" />
+                                    <TextField fx:id="formName" alignment="CENTER" maxWidth="-Infinity" visible="false" />
+                                 </children></VBox>
+                              <VBox alignment="CENTER" prefHeight="88.0" prefWidth="201.0">
+                                 <children>
+                                    <Label fx:id="lblAtt" contentDisplay="CENTER" />
+                                    <TextField fx:id="formAtt" alignment="CENTER" maxWidth="-Infinity" visible="false" />
+                                 </children>
+                              </VBox>
+                              <VBox alignment="CENTER" prefHeight="88.0" prefWidth="201.0">
+                                 <children>
+                                    <Label fx:id="lblHP" alignment="CENTER" contentDisplay="CENTER" text="HP :" visible="false" />
+                                    <TextField fx:id="formHP" alignment="CENTER" maxWidth="-Infinity" visible="false" />
+                                 </children>
+                              </VBox>
                            </children>
-                        </VBox>
-                        <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0">
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="32.0" prefWidth="600.0">
                            <children>
-                              <Button fx:id="btnAddEdit" alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="30.0" prefWidth="65.0" visible="false" />
+                              <Button fx:id="btnAddEdit" mnemonicParsing="false" prefHeight="26.0" prefWidth="86.0" text="Button" visible="false" />
                            </children>
-                        </VBox>
+                        </HBox>
+                        <HBox alignment="CENTER" prefHeight="59.0" prefWidth="600.0">
+                           <children>
+                              <Button fx:id="btnValidity" disable="true" mnemonicParsing="false" prefHeight="28.0" prefWidth="555.0" text="Checking Validity :" textFill="#a47a7a" visible="false" />
+                           </children>
+                        </HBox>
                      </children>
                   </VBox>
                </children>
